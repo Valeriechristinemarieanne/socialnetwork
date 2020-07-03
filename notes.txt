@@ -1,0 +1,66 @@
+TODO: 
+- add props syntax, ask sandra for screenshot
+- add secrets.json file!!!!
+
+
+function HelloWorld() {
+    let style = {
+        color: "tomato",
+        textDecoration: "underline",
+    };
+    // add single curly braces!! in order to refer to the object i created up top
+    return <div style={style}>Hello, <Greetee name="kitty"/>!</div>;
+}
+
+function Greetee(props) {
+    return (
+        <strong>
+            {props.name}
+    )
+}
+
+Conditional rendering
+{props.name}
+{props.name =='kitty ? <span></span>}
+
+STATE IN REACT: 
+- like data in Vue
+- components can have State (object with properties) so you can change its appearance (i.e. to add value of input fields)
+
+You can move functions into seperate files 
+constructor props
+
+event system to put values 
+handleChange(e) {
+    this.setState(
+    { name: e.target.value}
+    )
+}
+
+// this is how you create a component in the HTML element
+// XML usually forces to close all tags! /> is the alternative
+// every component produces a single element / new exception: you can add an array of elements, as well as strings
+ReactDOM.render(<HelloWorld />, document.querySelector("main"));
+
+// this defines the (function-) component
+// main job is to produce an element that can contain HTML elements or other components in the DOM
+// React components all start with a capital letter
+// in order to add css-styling, in order to give an element a class, it needs to be called className!!!
+
+function HelloWorld() {
+    let style = {
+        color: "tomato",
+        textDecoration: "underline",
+    };
+    // add single curly braces!! in order to refer to the object i created up top
+    return <div style={style}>Hello, World!</div>;
+}
+
+
+
+
+
+TODO:
+JSX
+PROPS 
+STATE
