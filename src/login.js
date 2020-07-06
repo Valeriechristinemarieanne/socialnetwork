@@ -49,6 +49,7 @@ export default class Login extends React.Component {
                     onChange={(e) => this.handleChange(e)}
                 />
                 <button onClick={(e) => this.logMe(e)}>Login</button>
+                <Link to="/resetPassword">Forgot your Password?</Link>
                 <Link to="/register">Register first</Link>
             </div>
         );

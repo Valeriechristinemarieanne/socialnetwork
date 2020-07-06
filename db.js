@@ -27,3 +27,19 @@ exports.getPassword = (email) => {
         [email]
     );
 };
+
+// GET EMAIL FROM REGISTER TABLE TO VERIFY EMAIL FOR COMPONENT 1
+exports.getEmail = (email) => {
+    return db.query(
+        `SELECT * FROM register
+        WHERE email = $1`,
+        [email]
+    );
+};
+
+exports.insertCode = (secretCode, email) => {
+    return db.query(
+        `INSERT INTO reset_codes (code, email) VALUES ($1) RETURNING *`,
+        [secretCode]
+    );
+};

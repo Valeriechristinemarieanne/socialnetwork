@@ -2,13 +2,10 @@ const express = require("express");
 const app = express();
 const compression = require("compression");
 const { hash, compare } = require("./bc.js");
-const { insertRegData, getPassword } = require("./db.js");
+const { insertRegData, getPassword, insertCode } = require("./db.js");
 const cookieSession = require("cookie-session");
-/* const cryptoRandomString = require("crypto-random-string");
-const secretCode = cryptoRandomString({
-    length: 6,
-}); */
-
+const cryptoRandomString = require("crypto-random-string");
+const csurf = require("csurf");
 app.use(compression());
 app.use(express.static("./public"));
 
@@ -27,6 +24,14 @@ app.use(
         extended: false,
     })
 );
+
+// this middleware works for all post requests
+app.use(csurf());
+
+app.use(function (req, res, next) {
+    res.cookie("mytoken", req.csrfToken());
+    next();
+});
 
 if (process.env.NODE_ENV != "production") {
     app.use(
@@ -62,10 +67,10 @@ app.post("/register", function (req, res) {
                 hashedPw
             )
                 .then((result) => {
-                    req.session.id = result.rows[0].id;
                     /* console.log("req.body: ", req.body);
                     console.log("req.session: ", req.session); */
-                    if (req.session.id) {
+                    if (result.rows[0]) {
+                        req.session.id = result.rows[0].id;
                         res.json();
                     } else {
                         res.sendStatus(500);
@@ -85,7 +90,6 @@ app.post("/register", function (req, res) {
 
 app.post("/login", (req, res) => {
     // with the help of the e-mail adress we will identify, the hash to check against the password provided
-
     let userEmail = req.body.email;
     let userPassword = req.body.password;
 
@@ -99,6 +103,39 @@ app.post("/login", (req, res) => {
                         req.session.id = result.rows[0].id;
                         res.json();
                         // if compare returned true: check if the user has signed the petition
+                    } else {
+                        // if password don't match render login with error message
+                        res.sendStatus(500);
+                    }
+                })
+                .catch((err) => {
+                    console.log("error in POST / login compare: ", err);
+                    // you probably just want to render login with an error
+                    res.sendStatus(500);
+                });
+        })
+        .catch((err) => {
+            console.log("error in POST/login: ", err);
+            res.render("login", { error: true });
+        });
+});
+
+app.post("/password/reset/start", (req, res) => {
+    let userEmail = req.body.email;
+    getEmail(userEmail)
+        .then((result) => {
+            const registeredEmail = result.rows[0].email;
+            compare(userEmail, registeredEmail)
+                .then((match) => {
+                    if (match) {
+                        const secretCode = cryptoRandomString({
+                            length: 6,
+                        });
+                        insertCode(secretCode)
+                            .then((result) => {})
+                            .catch((err) => {
+                                console.log("error in insertCode");
+                            });
                     } else {
                         // if password don't match render login with error message
                         res.sendStatus(500);
