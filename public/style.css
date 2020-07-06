@@ -1,3 +1,28 @@
 * {
-    background-color: pink;
+    background-color: whitesmoke;
+    font-family: "Courier New", Courier, monospace;
+    text-align: center;
+}
+
+.registercontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.logincontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+input {
+    width: 200px;
+    margin: 10px;
+}
+
+img {
+    width: 20vw;
 }

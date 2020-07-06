@@ -1,15 +1,22 @@
 import React from "react";
-import Registration from "./registration";
+import Register from "./register";
+import Login from "./login";
+import axios from "./axios";
+import { HashRouter, Route } from "react-router-dom";
 
 export default function Welcome() {
     let style = {
         color: "tomato",
-        textDecoration: "underline",
     };
     return (
         <div style={style}>
-            Welcome to my Social Network!
-            <Registration />
+            <h3>Welcome to my Social Network!</h3>
+            <HashRouter>
+                <div>
+                    <Route exact path="/" component={Register} />
+                    <Route path="/login" component={Login} />
+                </div>
+            </HashRouter>
         </div>
     );
 }

@@ -8,7 +8,12 @@ if (location.pathname === "/welcome") {
     elem = <Welcome />;
 } else {
     // runs if user IS logged in
-    elem = <img src="/my-logo.jpg" />;
+    elem = (
+        <div>
+            <h3>Hi there welcome back!</h3>
+            <img src="/my-logo.png" />
+        </div>
+    );
 }
 
 // ReactDOM.render is going to render our React code in the DOM
