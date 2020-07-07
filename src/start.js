@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Welcome from "./welcome";
+import App from "./app";
 
 let elem;
 if (location.pathname === "/welcome") {
@@ -8,12 +9,7 @@ if (location.pathname === "/welcome") {
     elem = <Welcome />;
 } else {
     // runs if user IS logged in
-    elem = (
-        <div>
-            <h3>Hi there welcome back!</h3>
-            <img src="/my-logo.png" />
-        </div>
-    );
+    elem = <App />;
 }
 
 // ReactDOM.render is going to render our React code in the DOM

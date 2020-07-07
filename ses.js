@@ -1,4 +1,5 @@
 const aws = require("aws-sdk");
+const { getEmail } = require("./db");
 
 let secrets;
 if (process.env.NODE_ENV == "production") {
@@ -36,9 +37,10 @@ exports.sendEmail = function (to, subject, message) {
         .catch((err) => console.log(err));
 };
 
-sendEmail(
-    "dill@spicedling.email",
-    "Here is your password reset code",
-    "123secretcode"
-).then((resultofpromise) => {}).catch((err) => console.log(err);
-)
+// sendEmail(
+//     "v.deguine@gmail.com",
+//     "Here is your password reset code",
+//     "123secretcode"
+// )
+//     .then((resultofpromise) => {})
+//     .catch((err) => console.log(err));

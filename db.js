@@ -37,9 +37,12 @@ exports.getEmail = (email) => {
     );
 };
 
+// INSERT CODE AND EMAIL INTO reset_codes TABLE
 exports.insertCode = (secretCode, email) => {
+    console.log("secretCode, email: ", secretCode, email);
+
     return db.query(
-        `INSERT INTO reset_codes (code, email) VALUES ($1) RETURNING *`,
-        [secretCode]
+        `INSERT INTO reset_codes (code, email) VALUES ($1, $2) RETURNING *`,
+        [secretCode, email]
     );
 };
