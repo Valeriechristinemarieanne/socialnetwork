@@ -26,3 +26,33 @@ input {
 img {
     width: 20vw;
 }
+
+.uploadercontainer {
+    width: 30vw;
+    height: 20vw;
+    background-color: tomato;
+}
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+    cursor: pointer;
+}
+
+.inputfile + label {
+    font-size: 1em;
+    color: white;
+    background-color: #323e48;
+    display: inline-block;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: pink;
+}

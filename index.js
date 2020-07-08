@@ -9,11 +9,15 @@ const {
     insertCode,
     verifyCode,
     updatePw,
+    getUserInfo,
 } = require("./db.js");
 const { sendEmail } = require("./ses.js");
 const cookieSession = require("cookie-session");
 const cryptoRandomString = require("crypto-random-string");
 const csurf = require("csurf");
+const s3 = require("./s3");
+const { s3Url } = require("./config.json");
+console.log("s3Url: ", s3Url);
 app.use(compression());
 app.use(express.static("./public"));
 
@@ -32,6 +36,29 @@ app.use(
         extended: false,
     })
 );
+
+// FILE UPLOAD BOILERPLATE
+const multer = require("multer");
+const uidSafe = require("uid-safe");
+const path = require("path");
+
+const diskStorage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, __dirname + "/uploads");
+    },
+    filename: function (req, file, callback) {
+        uidSafe(24).then(function (uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    },
+});
+
+const uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152,
+    },
+});
 
 // this middleware works for all post requests
 app.use(csurf());
@@ -131,8 +158,29 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/user", (req, res) => {
+    getUserInfo(req.session.id)
+        .then((result) => {
+            res.json(result);
+        })
+        .catch((err) => {
+            console.log("error in GET/user SERVER ROUTE: ", err);
+            res.sendStatus(500);
+        });
     // make request to database to fetch user information
     // send data to app.js
+});
+
+app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
+    const { filename } = req.file;
+    const imageUrl = `${s3Url}${filename}`;
+
+    if (req.file) {
+        addImage(imageUrl).then((response) => {
+            res.json(response.rows[0]);
+        });
+    } else {
+        console.log("ERROR in POST images");
+    }
 });
 
 app.post("/resetpassword", (req, res) => {

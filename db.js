@@ -63,3 +63,10 @@ exports.updatePw = (password, email) => {
         [password, email]
     );
 };
+
+// SELECT EVERYTHING FROM REGISTER TABLE TO DISPLAY IN APP COMPONENT
+exports.getUserInfo = (id) => {
+    return db
+        .query(`SELECT * FROM register WHERE id=$1`, [id])
+        .then(({ rows }) => rows);
+};
