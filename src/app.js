@@ -2,12 +2,15 @@ import React from "react";
 import axios from "./axios";
 import ProfilePic from "./profilepic";
 import Uploader from "./uploader";
+import Profile from "./profile";
 
 export default class App extends React.Component {
     constructor() {
         super();
         this.state = {
             uploaderIsVisible: false,
+            first: "Valérie",
+            last: "Deguine",
         };
     }
 
@@ -38,12 +41,18 @@ export default class App extends React.Component {
             <div>
                 <h1>App</h1>
                 {/* this is how we pass props. on the right hand side must be a variable WITH A DEFINED VALUE*/}
-                <ProfilePic
+
+                <Profile
+                    first={this.state.first}
+                    last={this.state.last}
+                    imageUrl={this.state.imageUrl}
+                />
+                {/* <ProfilePic
                     first={this.state.first}
                     last={this.state.last}
                     profilePic={this.state.profilePic}
                     toggleModal={() => this.toggleModal()}
-                />
+                /> */}
                 <p onClick={() => this.toggleModal()}>
                     click me to toggle the modal!
                 </p>

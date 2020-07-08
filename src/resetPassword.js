@@ -17,17 +17,37 @@ export default class ResetPassword extends React.Component {
     handleClick(e) {
         e.preventDefault();
         // console.log("Tryin' to handle a click here");
-
+        const self = this;
         axios
-            .post("/resetpassword", this.state)
+            .post("/resetpassword", self.state)
             .then(function (response) {
-                console.log(
-                    "response from POST/password/reset/start",
-                    response
-                );
+                // console.log(
+                //     "response from POST/password/reset/start",
+                //     response
+                // );
+                console.log("self.state in post resetpassword: ", self.state);
+
+                self.setState({ apple: 11 });
             })
             .catch(function (err) {
                 console.log("err in POST/resetpassword:", err);
+            });
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        const self = this;
+        axios
+            .post("/verifypassword", this.state)
+            .then(function (response) {
+                // console.log(
+                //     "response from POST/password/reset/verify",
+                //     response
+                // );
+                self.setState({ apple: 12 });
+            })
+            .catch(function (err) {
+                console.log("err in POST/verifypassword display2:", err);
             });
     }
 
@@ -49,20 +69,33 @@ export default class ResetPassword extends React.Component {
                     <button onClick={(e) => this.handleClick(e)}>Submit</button>
                 </div>
             );
-            //   } else if () {
-            //       return (
-            //           <div>
-            //               <input name='code' placeholder="Code"></input>
-            //               <input name='r_password' placeholder="New Password"></input>
-            //               <button onClick={(e) => this.handleClick(e)}>Submit</button>
-            //           </div>
-            //       )
-
-            //   } else {
-            //          <div>
-            //               <h3> Your Password has successfully been reset ✌</h3>
-            //           </div>
-            //   }
+        } else if (this.state.apple == 11) {
+            return (
+                <div>
+                    <p>
+                        Please enter the Code you have just received via email
+                    </p>
+                    <input
+                        name="code"
+                        placeholder="Code"
+                        onChange={(e) => this.handleChange(e)}
+                    ></input>
+                    <input
+                        name="r_password"
+                        placeholder="New Password"
+                        onChange={(e) => this.handleChange(e)}
+                    ></input>
+                    <button onClick={(e) => this.handleSubmit(e)}>
+                        Submit
+                    </button>
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <h3> Your Password has successfully been reset ✌</h3>
+                </div>
+            );
         }
     }
 

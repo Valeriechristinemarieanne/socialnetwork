@@ -2,7 +2,14 @@ const express = require("express");
 const app = express();
 const compression = require("compression");
 const { hash, compare } = require("./bc.js");
-const { insertRegData, getPassword, getEmail, insertCode } = require("./db.js");
+const {
+    insertRegData,
+    getPassword,
+    getEmail,
+    insertCode,
+    verifyCode,
+    updatePw,
+} = require("./db.js");
 const { sendEmail } = require("./ses.js");
 const cookieSession = require("cookie-session");
 const cryptoRandomString = require("crypto-random-string");
@@ -153,7 +160,7 @@ app.post("/resetpassword", (req, res) => {
                             "Here is your password reset code",
                             secretCode
                         ).then(() => {
-                            res.json({ success: true });
+                            res.json({ success: true, email: req.body.email });
                         });
                     })
                     .catch((err) => {
@@ -170,6 +177,25 @@ app.post("/resetpassword", (req, res) => {
             // you probably just want to render login with an error
             res.sendStatus(500);
         });
+});
+
+app.post("/verifypassword", (req, res) => {
+    console.log("I am entering verify password");
+
+    let userCode = req.body.code;
+
+    verifyCode(userCode).then((result) => {
+        console.log("result.rows in verify code: ", result.rows);
+        const codeInDB = result.rows[0].code;
+        if (userCode == codeInDB) {
+            hash(req.body.password).then((hashedPw) => {
+                updatePw(hashedPw, req.body.email).then((result) => {
+                    // console.log("result.rows: ", result.rows);
+                    res.json(result);
+                });
+            });
+        }
+    });
 });
 
 app.get("*", function (req, res) {
