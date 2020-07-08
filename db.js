@@ -49,15 +49,17 @@ exports.insertCode = (secretCode, email) => {
 exports.verifyCode = (secretCode) => {
     return db.query(
         `SELECT * FROM reset_codes
-  WHERE CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes'`,
+  WHERE CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes' AND code =$1`,
         [secretCode]
     );
 };
 
 // UPDATE PASSWORD IN REGISTER TABLE
 exports.updatePw = (password, email) => {
+    console.log("I am updating the pw");
+
     return db.query(
-        `UPDATE register SET password=$1 WHERE register.email = $2 RETURNING * `,
+        `UPDATE register SET password=$1 WHERE email = $2 RETURNING * `,
         [password, email]
     );
 };

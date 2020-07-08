@@ -109,11 +109,13 @@ app.post("/login", (req, res) => {
                     if (match) {
                         // if match is true, you want to store the user id in the cookie
                         req.session.id = result.rows[0].id;
-                        res.json();
+                        res.json({ success: true });
                         // if compare returned true: check if the user has signed the petition
                     } else {
                         // if password don't match render login with error message
-                        res.sendStatus(500);
+                        console.log("I don't think there is a match");
+                        // res.sendStatus(500);
+                        res.json({ success: false });
                     }
                 })
                 .catch((err) => {
@@ -180,20 +182,31 @@ app.post("/resetpassword", (req, res) => {
 });
 
 app.post("/verifypassword", (req, res) => {
-    console.log("I am entering verify password");
+    // console.log("I am entering verify password");
 
     let userCode = req.body.code;
+    // console.log("req.body: ", req.body);
 
     verifyCode(userCode).then((result) => {
-        console.log("result.rows in verify code: ", result.rows);
+        // console.log("result.rows in verify code: ", result.rows);
+        console.log("req.body.password: ", req.body.password);
+
         const codeInDB = result.rows[0].code;
         if (userCode == codeInDB) {
-            hash(req.body.password).then((hashedPw) => {
-                updatePw(hashedPw, req.body.email).then((result) => {
-                    // console.log("result.rows: ", result.rows);
-                    res.json(result);
+            hash(req.body.password)
+                .then((hashedPw) => {
+                    console.log("hashedPw: ", hashedPw);
+
+                    updatePw(hashedPw, req.body.email).then((result) => {
+                        console.log("result.rows: ", result.rows);
+                        res.json(result);
+                    });
+                })
+                .catch((err) => {
+                    console.log("error in POST/verifyCode/hash: ", err);
+                    // you probably just want to render login with an error
+                    res.sendStatus(500);
                 });
-            });
         }
     });
 });

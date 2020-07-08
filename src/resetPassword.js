@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default class ResetPassword extends React.Component {
     constructor() {
         super();
-        this.state = { apple: 10, email: "" };
+        this.state = { apple: 10, email: "", code: "", password: "" };
     }
 
     handleChange(e) {
@@ -38,7 +38,7 @@ export default class ResetPassword extends React.Component {
         e.preventDefault();
         const self = this;
         axios
-            .post("/verifypassword", this.state)
+            .post("/verifypassword", self.state)
             .then(function (response) {
                 // console.log(
                 //     "response from POST/password/reset/verify",
@@ -64,6 +64,7 @@ export default class ResetPassword extends React.Component {
                     <input
                         name="email"
                         placeholder="Email"
+                        key="email"
                         onChange={(e) => this.handleChange(e)}
                     />
                     <button onClick={(e) => this.handleClick(e)}>Submit</button>
@@ -81,8 +82,9 @@ export default class ResetPassword extends React.Component {
                         onChange={(e) => this.handleChange(e)}
                     ></input>
                     <input
-                        name="r_password"
+                        name="password"
                         placeholder="New Password"
+                        key="password"
                         onChange={(e) => this.handleChange(e)}
                     ></input>
                     <button onClick={(e) => this.handleSubmit(e)}>
