@@ -4,6 +4,8 @@ import ProfilePic from "./profilepic";
 import Uploader from "./uploader";
 import Profile from "./profile";
 import BioEditor from "./bioeditor";
+import OtherProfile from "./otherProfile";
+import { BrowserRouter, Route } from "react-router-dom";
 
 export default class App extends React.Component {
     constructor() {
@@ -73,16 +75,26 @@ export default class App extends React.Component {
                     />
                 </div>
                 {/* <h1>This is my APP component</h1> */}
-
-                <Profile
-                    first={this.state.first}
-                    last={this.state.last}
-                    url={this.state.url}
-                    toggleModal={() => this.toggleModal()}
-                    setImage={() => this.setImage()}
-                    bio={this.state.bio}
-                    setBio={(newbio) => this.setBio(newbio)}
-                />
+                <BrowserRouter>
+                    <div>
+                        <Route
+                            exact
+                            path="/"
+                            render={() => (
+                                <Profile
+                                    first={this.state.first}
+                                    last={this.state.last}
+                                    url={this.state.url}
+                                    toggleModal={() => this.toggleModal()}
+                                    setImage={() => this.setImage()}
+                                    bio={this.state.bio}
+                                    setBio={(newbio) => this.setBio(newbio)}
+                                />
+                            )}
+                        />
+                        <Route path="/user/:id" component={OtherProfile} />
+                    </div>
+                </BrowserRouter>
 
                 {this.state.uploaderIsVisible && (
                     <Uploader setImage={(newurl) => this.setImage(newurl)} />
