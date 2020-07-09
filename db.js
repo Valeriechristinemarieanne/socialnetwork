@@ -78,3 +78,12 @@ exports.addImage = (url, id) => {
         id,
     ]);
 };
+
+// ADD BIO TO THE REGISTER TABLE
+exports.updateBio = (bio, id) => {
+    // console.log("id, bio: ", id, bio);
+    return db.query(`UPDATE register SET bio=$2 WHERE id=$1 RETURNING *`, [
+        bio,
+        id,
+    ]);
+};

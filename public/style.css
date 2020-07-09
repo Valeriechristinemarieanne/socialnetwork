@@ -1,5 +1,5 @@
 * {
-    background-color: whitesmoke;
+    /* background-color: whitesmoke; */
     font-family: "Courier New", Courier, monospace;
     text-align: center;
 }
@@ -16,6 +16,12 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 input {
@@ -54,5 +60,32 @@ img {
 
 .inputfile:focus + label,
 .inputfile + label:hover {
-    background-color: pink;
+    background-color: black;
+}
+
+.profilepiccontainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: tomato 1px solid;
+}
+
+.logo {
+    height: 100px;
+    width: 100px;
+    align-self: flex-start;
+}
+
+.profilepic {
+    width: 100px;
+    height: 100px;
+    align-self: flex-end;
+    border-radius: 50%;
+    background-size: cover;
+}
+
+textarea {
+    width: 300px;
+    height: 100px;
+    background-color: whitesmoke;
 }

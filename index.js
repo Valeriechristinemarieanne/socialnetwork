@@ -11,6 +11,7 @@ const {
     updatePw,
     getUserInfo,
     addImage,
+    updateBio,
 } = require("./db.js");
 const { sendEmail } = require("./ses.js");
 const cookieSession = require("cookie-session");
@@ -169,6 +170,23 @@ app.get("/user", (req, res) => {
         });
     // make request to database to fetch user information
     // send data to app.js
+});
+
+app.post("/updatebio", (req, res) => {
+    let bio = req.body.bio;
+    let id = req.session.id;
+    console.log("req.body.bio: ", req.body.bio);
+
+    updateBio(id, bio)
+        .then((result) => {
+            // console.log("result.rows[0].bio: ", result.rows[0].bio);
+            res.json(result.rows[0]);
+        })
+        .catch((err) => {
+            console.log("error in POST/updateBio cannot update bio: ", err);
+            // you probably just want to render login with an error
+            // res.sendStatus(500);
+        });
 });
 
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {

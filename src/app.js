@@ -3,6 +3,7 @@ import axios from "./axios";
 import ProfilePic from "./profilepic";
 import Uploader from "./uploader";
 import Profile from "./profile";
+import BioEditor from "./bioeditor";
 
 export default class App extends React.Component {
     constructor() {
@@ -12,13 +13,14 @@ export default class App extends React.Component {
             first: "",
             last: "",
             url: "",
+            bio: "",
         };
     }
 
     // lifecycle methods
     componentDidMount() {
         axios.get("/user").then((response) => {
-            console.log("response: ", response);
+            // console.log("response: ", response);
             let newurl;
             if (response.data[0].url) {
                 newurl = response.data[0].url;
@@ -29,6 +31,7 @@ export default class App extends React.Component {
                 first: response.data[0].first,
                 last: response.data[0].last,
                 url: newurl,
+                bio: response.data[0].bio,
             });
             // console.log("this.state: ", this.state);
         });
@@ -40,31 +43,45 @@ export default class App extends React.Component {
     }
 
     setImage(newurl) {
-        console.log("newurl: ", newurl);
+        // console.log("newurl: ", newurl);
 
         this.setState({
             url: newurl,
         });
         console.log("this.state:", this.state);
     }
+
+    setBio(newbio) {
+        this.setState({
+            bio: newBio,
+        });
+    }
+
     render() {
         // console.log("this.state: ", this.state);
 
         return (
             <div className="loggedincontainer">
-                <h1>App</h1>
-                {/* this is how we pass props. on the right hand side must be a variable WITH A DEFINED VALUE*/}
+                <div className="header">
+                    <img className="logo" src="/my-logo.png" />
+                    {/* <h1>App</h1> */}
+                    {/* this is how we pass props. on the right hand side must be a variable WITH A DEFINED VALUE*/}
+                    <ProfilePic
+                        url={this.state.url}
+                        toggleModal={() => this.toggleModal()}
+                        setImage={() => this.setImage()}
+                    />
+                </div>
+                {/* <h1>This is my APP component</h1> */}
 
-                {/* <Profile
+                <Profile
                     first={this.state.first}
                     last={this.state.last}
-                    imageUrl={this.state.imageUrl}
-                /> */}
-                <ProfilePic
-                    first={this.state.first}
-                    last={this.state.last}
-                    profilePic={this.state.url}
+                    url={this.state.url}
                     toggleModal={() => this.toggleModal()}
+                    setImage={() => this.setImage()}
+                    bio={this.state.bio}
+                    setBio={(bio) => this.setBio(bio)}
                 />
 
                 {this.state.uploaderIsVisible && (
