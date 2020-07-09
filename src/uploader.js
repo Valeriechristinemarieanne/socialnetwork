@@ -15,15 +15,15 @@ export default class Uploader extends React.Component {
 
     handleClick(e) {
         e.preventDefault();
-        var self = this;
         var formData = new FormData();
 
         formData.append("file", this.file);
 
         axios
             .post("/upload", formData)
-            .then(function (response) {
-                console.log("response from POST/upload", response);
+            .then((response) => {
+                console.log("response from POST/upload", response.data);
+                this.props.setImage(response.data);
             })
             .catch(function (err) {
                 console.log("err in POST/upload:", err);
@@ -35,10 +35,6 @@ export default class Uploader extends React.Component {
                 console.log("file: ", e.target.files[0]); */
         this.file = e.target.files[0];
         /* console.log(("this after adding file to data: ", this)); */
-    }
-
-    sillyFunctionCreateRealOne() {
-        this.props.setImage("put the new profile pic url here");
     }
 
     render() {

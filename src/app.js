@@ -39,10 +39,13 @@ export default class App extends React.Component {
         });
     }
 
-    setImage(newProfilePic) {
+    setImage(newurl) {
+        console.log("newurl: ", newurl);
+
         this.setState({
-            profilePic: newProfilePic,
+            url: newurl,
         });
+        console.log("this.state:", this.state);
     }
     render() {
         // console.log("this.state: ", this.state);
@@ -65,7 +68,7 @@ export default class App extends React.Component {
                 />
 
                 {this.state.uploaderIsVisible && (
-                    <Uploader setImage={this.setImage} />
+                    <Uploader setImage={(newurl) => this.setImage(newurl)} />
                 )}
             </div>
         );
