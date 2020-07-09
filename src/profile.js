@@ -16,7 +16,10 @@ export default function Profile(props) {
                 setImage={() => props.setImage()}
             />
 
-            <BioEditor bio={props.bio} setBio={() => props.setBio()} />
+            <BioEditor
+                bio={props.bio}
+                setBio={(newbio) => props.setBio(newbio)}
+            />
         </div>
     );
 }

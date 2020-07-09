@@ -53,7 +53,7 @@ export default class App extends React.Component {
 
     setBio(newbio) {
         this.setState({
-            bio: newBio,
+            bio: newbio,
         });
     }
 
@@ -81,7 +81,7 @@ export default class App extends React.Component {
                     toggleModal={() => this.toggleModal()}
                     setImage={() => this.setImage()}
                     bio={this.state.bio}
-                    setBio={(bio) => this.setBio(bio)}
+                    setBio={(newbio) => this.setBio(newbio)}
                 />
 
                 {this.state.uploaderIsVisible && (

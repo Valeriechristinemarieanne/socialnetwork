@@ -23,24 +23,24 @@ export default class BioEditor extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         const self = this;
-        // if (self.state.bio != "") {
-        axios
-            .post("/updatebio", { bio: self.state.bio })
-            .then(function (response) {
-                // console.log("response from POST updatebio", response);
-                self.props.setBio(self.state.bio);
-                self.setState({
-                    editorIsVisible: false,
+        if (self.state.bio != "") {
+            axios
+                .post("/updatebio", { bio: self.state.bio })
+                .then(function (response) {
+                    // console.log("response from POST updatebio", response);
+                    self.props.setBio(self.state.bio);
+                    self.setState({
+                        editorIsVisible: false,
+                    });
+                })
+                .catch(function (err) {
+                    console.log("err in POST Updatebio: ", err);
                 });
-            })
-            .catch(function (err) {
-                console.log("err in POST Updatebio: ", err);
+        } else {
+            this.setState({
+                editorIsVisible: false,
             });
-        // } else {
-        //     this.setState({
-        //         editorIsVisible: false,
-        //     });
-        // }
+        }
     }
 
     // changehandler to show the bio editor
