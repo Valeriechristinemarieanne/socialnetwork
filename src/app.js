@@ -31,9 +31,6 @@ export default class App extends React.Component {
                 url: newurl,
             });
             // console.log("this.state: ", this.state);
-
-            // store response from server in state
-            // get to a point where you can log "this.state" and see the user's first, last, profile pic
         });
     }
     toggleModal() {

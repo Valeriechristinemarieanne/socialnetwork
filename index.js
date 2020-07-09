@@ -10,6 +10,7 @@ const {
     verifyCode,
     updatePw,
     getUserInfo,
+    addImage,
 } = require("./db.js");
 const { sendEmail } = require("./ses.js");
 const cookieSession = require("cookie-session");
@@ -173,11 +174,20 @@ app.get("/user", (req, res) => {
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     const { filename } = req.file;
     const imageUrl = `${s3Url}${filename}`;
+    const id = req.session.id;
 
     if (req.file) {
-        addImage(imageUrl).then((response) => {
-            res.json(response.rows[0]);
-        });
+        addImage(imageUrl, id)
+            .then((response) => {
+                // console.log("response: ", response);
+                res.json(response.rows[0].url);
+                // console.log("response.rows[0]: ", response.rows[0]);
+                // console.log("response.rows[0].url: ", response.rows[0].url);
+            })
+            .catch((err) => {
+                console.log("error in POST upload (addImage): ", err);
+                // res.sendStatus(500);
+            });
     } else {
         console.log("ERROR in POST images");
     }

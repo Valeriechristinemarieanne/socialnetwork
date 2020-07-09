@@ -14,8 +14,8 @@ export default class Uploader extends React.Component {
     // once the file is in FormData, then we can send the file off to the server
 
     handleClick(e) {
-        var self = this;
         e.preventDefault();
+        var self = this;
         var formData = new FormData();
 
         formData.append("file", this.file);
@@ -24,7 +24,6 @@ export default class Uploader extends React.Component {
             .post("/upload", formData)
             .then(function (response) {
                 console.log("response from POST/upload", response);
-                self.images.unshift(response.data);
             })
             .catch(function (err) {
                 console.log("err in POST/upload:", err);

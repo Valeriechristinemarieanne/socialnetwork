@@ -70,3 +70,11 @@ exports.getUserInfo = (id) => {
         .query(`SELECT * FROM register WHERE id=$1`, [id])
         .then(({ rows }) => rows);
 };
+
+// ADD IMAGE URL TO THE DATABASE
+exports.addImage = (url, id) => {
+    return db.query(`UPDATE register SET url=$1 WHERE id=$2 RETURNING *`, [
+        url,
+        id,
+    ]);
+};
