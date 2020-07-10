@@ -64,18 +64,19 @@ export default class App extends React.Component {
             <div className="loggedincontainer">
                 <div className="header">
                     <img className="logo" src="/my-logo.png" />
-                    <h3>Welcome to the Turtle Network</h3>
-
-                    <ProfilePic
-                        url={this.state.url}
-                        toggleModal={() => this.toggleModal()}
-                        setImage={() => this.setImage()}
-                    />
-                    {this.state.uploaderIsVisible && (
-                        <Uploader
-                            setImage={(newurl) => this.setImage(newurl)}
+                    <div className="profilepicanduploader">
+                        {this.state.uploaderIsVisible && (
+                            <Uploader
+                                className="uploader"
+                                setImage={(newurl) => this.setImage(newurl)}
+                            />
+                        )}
+                        <ProfilePic
+                            url={this.state.url}
+                            toggleModal={() => this.toggleModal()}
+                            setImage={() => this.setImage()}
                         />
-                    )}
+                    </div>
                 </div>
                 {/* <h1>This is my APP component</h1> */}
                 <BrowserRouter>

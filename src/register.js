@@ -41,37 +41,53 @@ export default class Register extends React.Component {
         return (
             <div className="registercontainer">
                 <img src="/my-logo.png" />
+                <p>
+                    <strong>
+                        Meet new friends & create meaningful relations.
+                    </strong>
+                </p>
                 <div>{this.state.error && <p>Something went wrong</p>}</div>
-                <input
-                    name="first"
-                    placeholder="First name"
-                    type="text"
-                    onChange={(e) => this.handleChange(e)}
-                    required
-                />
-                <input
-                    name="last"
-                    placeholder="Last name"
-                    type="text"
-                    onChange={(e) => this.handleChange(e)}
-                    required
-                />
-                <input
-                    name="email"
-                    placeholder="Email"
-                    type="text"
-                    onChange={(e) => this.handleChange(e)}
-                    required
-                />
-                <input
-                    name="password"
-                    placeholder="Password"
-                    type="password"
-                    onChange={(e) => this.handleChange(e)}
-                    required
-                />
-                <button onClick={(e) => this.registerMe(e)}>Register</button>
-                <Link to="/login">Login</Link>
+                <div className="registerinputcontainer">
+                    <input
+                        name="first"
+                        placeholder="First name"
+                        type="text"
+                        autocomplete="off"
+                        onChange={(e) => this.handleChange(e)}
+                        required
+                    />
+                    <input
+                        name="last"
+                        placeholder="Last name"
+                        type="text"
+                        autocomplete="off"
+                        onChange={(e) => this.handleChange(e)}
+                        required
+                    />
+                    <input
+                        name="email"
+                        placeholder="Email"
+                        type="text"
+                        autocomplete="off"
+                        onChange={(e) => this.handleChange(e)}
+                        required
+                    />
+                    <input
+                        name="password"
+                        placeholder="Password"
+                        type="password"
+                        autocomplete="off"
+                        onChange={(e) => this.handleChange(e)}
+                        required
+                    />
+                    <button onClick={(e) => this.registerMe(e)}>
+                        Sign up!
+                    </button>
+                    <p>
+                        Already a part of our community? Go to{" "}
+                        <Link to="/login">Login</Link>
+                    </p>
+                </div>
             </div>
         );
     }

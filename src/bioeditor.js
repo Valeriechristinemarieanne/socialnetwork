@@ -54,10 +54,10 @@ export default class BioEditor extends React.Component {
     renderBio() {
         if (this.state.editorIsVisible) {
             return (
-                <div>
+                <div className="bioupdateinput">
                     <textarea onChange={(e) => this.handleChange(e)}></textarea>
                     <button onClick={(e) => this.handleSubmit(e)}>
-                        Update Bio
+                        Update
                     </button>
                 </div>
             );
@@ -65,8 +65,12 @@ export default class BioEditor extends React.Component {
         }
         if (this.props.bio) {
             return (
-                <div>
-                    <p>{this.props.bio}</p>
+                <div className="biotext">
+                    <p>
+                        <strong>About me: </strong>
+                        {this.props.bio}
+                    </p>
+
                     <button onClick={(e) => this.editBio(e)}>Edit Bio</button>
                 </div>
             );

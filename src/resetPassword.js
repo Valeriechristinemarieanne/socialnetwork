@@ -56,7 +56,7 @@ export default class ResetPassword extends React.Component {
         // we'll have to update this property in state whenever we want to show the next display. where in our code should we update this property in state???
         if (this.state.apple == 10) {
             return (
-                <div>
+                <div className="resetpassword">
                     <h3>Reset your Password</h3>
                     <p>
                         Please enter the e-mail address you are registered with
@@ -65,6 +65,7 @@ export default class ResetPassword extends React.Component {
                         name="email"
                         placeholder="Email"
                         key="email"
+                        autocomplete="off"
                         onChange={(e) => this.handleChange(e)}
                     />
                     <button onClick={(e) => this.handleClick(e)}>Submit</button>
@@ -72,19 +73,22 @@ export default class ResetPassword extends React.Component {
             );
         } else if (this.state.apple == 11) {
             return (
-                <div>
+                <div className="resetpasswordcode">
                     <p>
                         Please enter the Code you have just received via email
                     </p>
                     <input
                         name="code"
                         placeholder="Code"
+                        autocomplete="off"
                         onChange={(e) => this.handleChange(e)}
                     ></input>
                     <input
                         name="password"
                         placeholder="New Password"
                         key="password"
+                        type="password"
+                        autocomplete="off"
                         onChange={(e) => this.handleChange(e)}
                     ></input>
                     <button onClick={(e) => this.handleSubmit(e)}>
@@ -96,6 +100,10 @@ export default class ResetPassword extends React.Component {
             return (
                 <div>
                     <h3> Your Password has successfully been reset ✌</h3>
+                    <p>
+                        All set up? Let's get you to{" "}
+                        <Link to="/login">Login</Link>
+                    </p>
                 </div>
             );
         }

@@ -5,12 +5,11 @@ import resetPassword from "./resetPassword";
 import { HashRouter, Route } from "react-router-dom";
 
 export default function Welcome() {
-    let style = {
-        color: "tomato",
-    };
     return (
-        <div style={style}>
-            <h3>Welcome to my Social Network!</h3>
+        // <div style={style}>
+        <div>
+            <h1>Let's get social !</h1>
+
             <HashRouter>
                 <div>
                     <Route exact path="/" component={Register} />

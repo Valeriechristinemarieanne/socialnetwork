@@ -37,12 +37,14 @@ export default class Login extends React.Component {
                 <img src="/my-logo.png" />
 
                 <input
+                    autocomplete="off"
                     name="email"
                     placeholder="Email"
                     type="text"
                     onChange={(e) => this.handleChange(e)}
                 />
                 <input
+                    autocomplete="off"
                     name="password"
                     placeholder="Password"
                     type="password"
@@ -50,7 +52,7 @@ export default class Login extends React.Component {
                 />
                 <button onClick={(e) => this.logMe(e)}>Login</button>
                 <Link to="/resetpassword">Forgot your Password?</Link>
-                <Link to="/register">Register first</Link>
+                <Link to="/">Register first</Link>
             </div>
         );
     }

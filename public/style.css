@@ -11,11 +11,24 @@
     align-items: center;
 }
 
+.registercontainer img {
+    width: 15vw;
+}
+
+.registerinputcontainer {
+    background-color: rgb(252, 237, 237);
+    width: 20vw;
+}
+
 .logincontainer {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+}
+
+.logincontainer img {
+    width: 15vw;
 }
 
 .header {
@@ -30,11 +43,15 @@ input {
     margin: 10px;
 }
 
-/* .uploadercontainer {
-    width: 30vw;
-    height: 20vw;
-    background-color: tomato;
-} */
+.profilepicanduploader {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.uploadercontainer {
+    align-self: flex-end;
+}
 
 .inputfile {
     width: 0.1px;
@@ -60,48 +77,104 @@ input {
     background-color: black;
 }
 
-.profilepiccontainer {
+/* .profilepiccontainer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    border: tomato 1px solid;
-}
+} */
 
 .logo {
     height: 100px;
     width: 100px;
     align-self: flex-start;
+    background-color: transparent;
 }
 
 div.header .profilepic {
     width: 80px;
     height: 80px;
     align-self: flex-end;
-    border-radius: 50%;
+    border-radius: 12%;
     background-size: cover;
-    margin: 5px;
+    margin: 10px;
+}
+
+.profilecontainer {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    width: 60vw;
+    background-color: rgb(252, 237, 237);
+    border-radius: 1%;
 }
 
 .profilepic {
     width: 300px;
     height: 300px;
     align-self: flex-end;
-    border-radius: 50%;
     background-size: cover;
     padding-bottom: 5px;
+    margin: 25px;
+}
+
+.profiletext {
+    display: flex;
+    flex-direction: column;
+}
+
+.profiletext h2 {
+    text-align: left;
+}
+
+.biotext {
+    text-align: left;
+    padding: 30px;
+}
+
+.biotext p {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.bioupdateinput {
+    display: flex;
+    flex-direction: column;
 }
 
 textarea {
-    width: 300px;
-    height: 100px;
-    background-color: whitesmoke;
+    width: 150px;
+    height: 80px;
+    background-color: #d77d75;
+    text-align: left;
+    padding: 30px;
+    border: none;
+}
+
+.bioupdateinput button {
+    display: flex;
+    flex-direction: column;
+    width: 80px;
+    margin-top: 15px;
+}
+
+button {
+    text-align: left;
+    font-size: 1em;
+    color: white;
+    background-color: #d77d75;
+    display: inline-block;
+    cursor: pointer;
+    padding: 5px;
+    border: none;
 }
 
 .otherprofile {
     display: flex;
     flex-direction: row;
-    border: tomato 1px solid;
     margin: 20px;
+    width: 60vw;
+    background-color: rgb(252, 237, 237);
+    border-radius: 1%;
 }
 
 .otherprofilepic {
