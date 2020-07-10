@@ -13,7 +13,7 @@ export default function Profile(props) {
                 setImage={() => props.setImage()}
             />
 
-            <div classname="profiletext">
+            <div className="profiletext">
                 <h2>
                     {props.first} {props.last}
                 </h2>

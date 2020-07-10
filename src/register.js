@@ -52,7 +52,7 @@ export default class Register extends React.Component {
                         name="first"
                         placeholder="First name"
                         type="text"
-                        autocomplete="off"
+                        autoComplete="off"
                         onChange={(e) => this.handleChange(e)}
                         required
                     />
@@ -60,7 +60,7 @@ export default class Register extends React.Component {
                         name="last"
                         placeholder="Last name"
                         type="text"
-                        autocomplete="off"
+                        autoComplete="off"
                         onChange={(e) => this.handleChange(e)}
                         required
                     />
@@ -68,7 +68,7 @@ export default class Register extends React.Component {
                         name="email"
                         placeholder="Email"
                         type="text"
-                        autocomplete="off"
+                        autoComplete="off"
                         onChange={(e) => this.handleChange(e)}
                         required
                     />
@@ -76,7 +76,7 @@ export default class Register extends React.Component {
                         name="password"
                         placeholder="Password"
                         type="password"
-                        autocomplete="off"
+                        autoComplete="off"
                         onChange={(e) => this.handleChange(e)}
                         required
                     />

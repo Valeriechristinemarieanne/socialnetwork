@@ -77,6 +77,7 @@ export default class BioEditor extends React.Component {
         } else {
             return (
                 <div>
+                    <p>Tell us something about yourself 💬</p>
                     <button onClick={(e) => this.editBio(e)}> Add Bio</button>
                 </div>
             );

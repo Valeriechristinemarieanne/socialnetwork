@@ -5,6 +5,7 @@ import Uploader from "./uploader";
 import Profile from "./profile";
 import OtherProfile from "./otherProfile";
 import { BrowserRouter, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default class App extends React.Component {
     constructor() {
@@ -64,6 +65,7 @@ export default class App extends React.Component {
             <div className="loggedincontainer">
                 <div className="header">
                     <img className="logo" src="/my-logo.png" />
+
                     <div className="profilepicanduploader">
                         {this.state.uploaderIsVisible && (
                             <Uploader
@@ -106,6 +108,13 @@ export default class App extends React.Component {
                                 />
                             )}
                         />
+                    </div>
+                    <div className="footer">
+                        <p>
+                            {" "}
+                            <Link to="/logout">Logout</Link>{" "}
+                            <Link to="/">My Profile</Link>
+                        </p>
                     </div>
                 </BrowserRouter>
             </div>

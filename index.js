@@ -301,6 +301,13 @@ app.post("/verifypassword", (req, res) => {
     });
 });
 
+app.get("/logout", (req, res) => {
+    if (req.session.id) {
+        req.session.id = null;
+        res.redirect("/");
+    }
+});
+
 app.get("*", function (req, res) {
     if (!req.session.id) {
         /* console.log("I know i am not logged in"); */
