@@ -84,8 +84,7 @@ export default class Register extends React.Component {
                         Sign up!
                     </button>
                     <p>
-                        Already a part of our community? Go to{" "}
-                        <Link to="/login">Login</Link>
+                        Already registered? Go to <Link to="/login">Login</Link>
                     </p>
                 </div>
             </div>

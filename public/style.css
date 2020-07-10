@@ -16,16 +16,28 @@
     width: 15vw;
 }
 
+.registercontainer p {
+    padding: 20px;
+}
+
 .registerinputcontainer {
     background-color: rgb(252, 237, 237);
-    width: 20vw;
+    width: 18vw;
 }
 
 .logincontainer {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     align-items: center;
+}
+
+.logincontainerinput {
+    background-color: rgb(252, 237, 237);
+    width: 18vw;
+}
+
+.logincontainer p {
+    padding: 10px;
 }
 
 .logincontainer img {
@@ -36,8 +48,14 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: #d77d75;
+    background: rgb(215, 125, 117);
+    background: linear-gradient(
+        180deg,
+        rgba(215, 125, 117, 1) 24%,
+        rgba(252, 237, 237, 1) 100%
+    );
     height: 80px;
+    margin-bottom: 50px;
 }
 
 input {

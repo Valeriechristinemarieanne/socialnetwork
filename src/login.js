@@ -35,24 +35,32 @@ export default class Login extends React.Component {
         return (
             <div className="logincontainer">
                 <img src="/my-logo.png" />
-
-                <input
-                    autocomplete="off"
-                    name="email"
-                    placeholder="Email"
-                    type="text"
-                    onChange={(e) => this.handleChange(e)}
-                />
-                <input
-                    autocomplete="off"
-                    name="password"
-                    placeholder="Password"
-                    type="password"
-                    onChange={(e) => this.handleChange(e)}
-                />
-                <button onClick={(e) => this.logMe(e)}>Login</button>
-                <Link to="/resetpassword">Forgot your Password?</Link>
-                <Link to="/">Register first</Link>
+                <div className="logincontainerinput">
+                    {" "}
+                    <input
+                        autocomplete="off"
+                        name="email"
+                        placeholder="Email"
+                        type="text"
+                        onChange={(e) => this.handleChange(e)}
+                    />
+                    <input
+                        autocomplete="off"
+                        name="password"
+                        placeholder="Password"
+                        type="password"
+                        onChange={(e) => this.handleChange(e)}
+                    />
+                    <button onClick={(e) => this.logMe(e)}>Login</button>
+                    <p>
+                        {" "}
+                        Forgot your Password?{" "}
+                        <Link to="/resetpassword">Reset</Link>
+                    </p>
+                    <p>
+                        <Link to="/">Register first</Link>{" "}
+                    </p>
+                </div>
             </div>
         );
     }
