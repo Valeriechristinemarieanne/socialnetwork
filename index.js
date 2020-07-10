@@ -12,6 +12,7 @@ const {
     getUserInfo,
     addImage,
     updateBio,
+    getOtherProfile,
 } = require("./db.js");
 const { sendEmail } = require("./ses.js");
 const cookieSession = require("cookie-session");
@@ -129,9 +130,11 @@ app.post("/login", (req, res) => {
     // with the help of the e-mail adress we will identify, the hash to check against the password provided
     let userEmail = req.body.email;
     let userPassword = req.body.password;
+    console.log("req.body.password: ", req.body.password);
 
     getPassword(userEmail)
         .then((result) => {
+            console.log("result.rows[0].password: ", result.rows[0].password);
             const hashedUserPasswordFromDB = result.rows[0].password;
             compare(userPassword, hashedUserPasswordFromDB)
                 .then((match) => {
@@ -170,6 +173,17 @@ app.get("/user", (req, res) => {
         });
     // make request to database to fetch user information
     // send data to app.js
+});
+
+app.get("/api/user/:id", (req, res) => {
+    getOtherProfile(req.params.id)
+        .then((result) => {
+            // console.log("result for user/id: ", result.rows[0]);
+            res.json(result.rows);
+        })
+        .catch((err) => {
+            console.log("error in GET/user/id SERVER ROUTE: ", err);
+        });
 });
 
 app.post("/updatebio", (req, res) => {

@@ -3,7 +3,6 @@ import axios from "./axios";
 import ProfilePic from "./profilepic";
 import Uploader from "./uploader";
 import Profile from "./profile";
-import BioEditor from "./bioeditor";
 import OtherProfile from "./otherProfile";
 import { BrowserRouter, Route } from "react-router-dom";
 
@@ -61,18 +60,22 @@ export default class App extends React.Component {
 
     render() {
         // console.log("this.state: ", this.state);
-
         return (
             <div className="loggedincontainer">
                 <div className="header">
                     <img className="logo" src="/my-logo.png" />
-                    {/* <h1>App</h1> */}
-                    {/* this is how we pass props. on the right hand side must be a variable WITH A DEFINED VALUE*/}
+                    <h3>Welcome to the Turtle Network</h3>
+
                     <ProfilePic
                         url={this.state.url}
                         toggleModal={() => this.toggleModal()}
                         setImage={() => this.setImage()}
                     />
+                    {this.state.uploaderIsVisible && (
+                        <Uploader
+                            setImage={(newurl) => this.setImage(newurl)}
+                        />
+                    )}
                 </div>
                 {/* <h1>This is my APP component</h1> */}
                 <BrowserRouter>
@@ -92,13 +95,18 @@ export default class App extends React.Component {
                                 />
                             )}
                         />
-                        <Route path="/user/:id" component={OtherProfile} />
+                        <Route
+                            path="/user/:id"
+                            render={(props) => (
+                                <OtherProfile
+                                    key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}
+                                />
+                            )}
+                        />
                     </div>
                 </BrowserRouter>
-
-                {this.state.uploaderIsVisible && (
-                    <Uploader setImage={(newurl) => this.setImage(newurl)} />
-                )}
             </div>
         );
     }

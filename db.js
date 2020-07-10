@@ -11,27 +11,27 @@ if (process.env.DATABASE_URL) {
     db = spicedPg(`postgres:${dbUser}:${dbPass}@localhost:5432/socialnetwork`);
 }
 
-//////// INSERT REGISTRATION DATA INTO REGISTER TABLE \\\\\\\\\\\\\
+//////// INSERT REGISTRATION DATA INTO users TABLE \\\\\\\\\\\\\
 exports.insertRegData = (first, last, email, password) => {
     return db.query(
-        `INSERT INTO register (first, last, email, password) VALUES ($1, $2, $3, $4) RETURNING *`,
+        `INSERT INTO users (first, last, email, password) VALUES ($1, $2, $3, $4) RETURNING *`,
         [first, last, email, password]
     );
 };
 
-// GET HASHED PASSWORD FROM REGISTER TABLE
+// GET HASHED PASSWORD FROM users TABLE
 exports.getPassword = (email) => {
     return db.query(
-        `SELECT password, id FROM register
+        `SELECT password, id FROM users
         WHERE email = $1`,
         [email]
     );
 };
 
-// GET EMAIL FROM REGISTER TABLE TO VERIFY EMAIL FOR COMPONENT 1
+// GET EMAIL FROM users TABLE TO VERIFY EMAIL FOR COMPONENT 1
 exports.getEmail = (email) => {
     return db.query(
-        `SELECT * FROM register
+        `SELECT * FROM users
         WHERE email = $1`,
         [email]
     );
@@ -54,36 +54,44 @@ exports.verifyCode = (secretCode) => {
     );
 };
 
-// UPDATE PASSWORD IN REGISTER TABLE
+// UPDATE PASSWORD IN users TABLE
 exports.updatePw = (password, email) => {
     console.log("I am updating the pw");
 
     return db.query(
-        `UPDATE register SET password=$1 WHERE email = $2 RETURNING * `,
+        `UPDATE users SET password=$1 WHERE email = $2 RETURNING * `,
         [password, email]
     );
 };
 
-// SELECT EVERYTHING FROM REGISTER TABLE TO DISPLAY IN APP COMPONENT
+// SELECT EVERYTHING FROM users TABLE TO DISPLAY IN APP COMPONENT
 exports.getUserInfo = (id) => {
     return db
-        .query(`SELECT * FROM register WHERE id=$1`, [id])
+        .query(`SELECT * FROM users WHERE id=$1`, [id])
         .then(({ rows }) => rows);
 };
 
 // ADD IMAGE URL TO THE DATABASE
 exports.addImage = (url, id) => {
-    return db.query(`UPDATE register SET url=$1 WHERE id=$2 RETURNING *`, [
+    return db.query(`UPDATE users SET url=$1 WHERE id=$2 RETURNING *`, [
         url,
         id,
     ]);
 };
 
-// ADD BIO TO THE REGISTER TABLE
+// ADD BIO TO THE users TABLE
 exports.updateBio = (bio, id) => {
     // console.log("id, bio: ", id, bio);
-    return db.query(`UPDATE register SET bio=$2 WHERE id=$1 RETURNING *`, [
+    return db.query(`UPDATE users SET bio=$2 WHERE id=$1 RETURNING *`, [
         bio,
+        id,
+    ]);
+};
+
+// FETCH OTHER USERS PROFILE
+exports.getOtherProfile = (id) => {
+    // console.log("id: ", id);
+    return db.query(`SELECT first, last, url, bio FROM users WHERE id=$1`, [
         id,
     ]);
 };

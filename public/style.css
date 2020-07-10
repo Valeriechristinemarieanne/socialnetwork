@@ -22,6 +22,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    border-bottom: lightcoral 1px solid;
 }
 
 input {
@@ -29,15 +30,11 @@ input {
     margin: 10px;
 }
 
-img {
-    width: 20vw;
-}
-
-.uploadercontainer {
+/* .uploadercontainer {
     width: 30vw;
     height: 20vw;
     background-color: tomato;
-}
+} */
 
 .inputfile {
     width: 0.1px;
@@ -76,16 +73,52 @@ img {
     align-self: flex-start;
 }
 
-.profilepic {
-    width: 100px;
-    height: 100px;
+div.header .profilepic {
+    width: 80px;
+    height: 80px;
     align-self: flex-end;
     border-radius: 50%;
     background-size: cover;
+    margin: 5px;
+}
+
+.profilepic {
+    width: 300px;
+    height: 300px;
+    align-self: flex-end;
+    border-radius: 50%;
+    background-size: cover;
+    padding-bottom: 5px;
 }
 
 textarea {
     width: 300px;
     height: 100px;
     background-color: whitesmoke;
+}
+
+.otherprofile {
+    display: flex;
+    flex-direction: row;
+    border: tomato 1px solid;
+    margin: 20px;
+}
+
+.otherprofilepic {
+    height: 300px;
+    width: 300px;
+    background-size: cover;
+    align-self: center;
+    margin: 10px;
+}
+
+.otherprofiletext {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.otherprofiletext p {
+    text-align: left;
+    width: 500px;
 }

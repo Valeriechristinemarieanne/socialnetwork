@@ -5,7 +5,7 @@ export default function ProfilePic(props) {
 
     return (
         <div className="profilepiccontainer">
-            <h6>This is the profile Pic component</h6>
+            {/* <h6>This is the profile Pic component</h6> */}
             <img
                 className="profilepic"
                 src={props.url}

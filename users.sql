@@ -1,11 +1,11 @@
-DROP TABLE IF EXISTS register CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
  
- CREATE TABLE register(
+ CREATE TABLE users(
       id SERIAL PRIMARY KEY,
       first VARCHAR(255) NOT NULL CHECK (first !=''),
       last VARCHAR(255) NOT NULL CHECK (last !=''),
       email VARCHAR(255) NOT NULL UNIQUE CHECK (email !=''),
-      password VARCHAR(255) NOT NULL UNIQUE CHECK (password !=''),
+      password VARCHAR(255) NOT NULL CHECK (password !=''),
       url VARCHAR,
      bio VARCHAR
       );
