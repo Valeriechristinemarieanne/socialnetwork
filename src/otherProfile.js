@@ -5,6 +5,7 @@ export default class OtherProfile extends React.Component {
     constructor() {
         super();
         this.state = {
+            // can be removed as the values are empty
             first: "",
             last: "",
             url: "",

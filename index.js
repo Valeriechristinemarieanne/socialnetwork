@@ -13,6 +13,7 @@ const {
     addImage,
     updateBio,
     getOtherProfile,
+    getRecentUsers,
 } = require("./db.js");
 const { sendEmail } = require("./ses.js");
 const cookieSession = require("cookie-session");
@@ -173,6 +174,18 @@ app.get("/user", (req, res) => {
         });
     // make request to database to fetch user information
     // send data to app.js
+});
+
+app.get("/api/users/:id", (req, res) => {
+    getRecentUsers()
+        .then((result) => {
+            console.log("result.rows", result.rows);
+            res.json(result.rows);
+        })
+        .catch((err) => {
+            console.log("error in GET/users SERVER ROUTE: ", err);
+            /* res.sendStatus(500); */
+        });
 });
 
 app.get("/api/user/:id", (req, res) => {

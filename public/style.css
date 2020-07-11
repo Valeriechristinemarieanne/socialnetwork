@@ -129,6 +129,7 @@ div.header .profilepic {
     background-size: cover;
     padding-bottom: 5px;
     margin: 25px;
+    cursor: pointer;
 }
 
 .profiletext {
@@ -211,6 +212,19 @@ button {
     margin-top: 10px;
     text-align: left;
     width: 500px;
+}
+
+.mappedusers {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+}
+
+.mappedusersimg {
+    height: 100px;
+    width: 100px;
+    margin: 10px;
 }
 
 /* .footer {

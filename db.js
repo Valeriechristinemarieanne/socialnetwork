@@ -95,3 +95,9 @@ exports.getOtherProfile = (id) => {
         id,
     ]);
 };
+
+// GET 3 USERS WHO RECENTLY SIGNED UP
+exports.getRecentUsers = () => {
+    /* console.log("id: ", id); */
+    return db.query(`SELECT * FROM users ORDER BY id DESC LIMIT 3`);
+};

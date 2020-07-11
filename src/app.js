@@ -4,6 +4,7 @@ import ProfilePic from "./profilepic";
 import Uploader from "./uploader";
 import Profile from "./profile";
 import OtherProfile from "./otherProfile";
+import FindPeople from "./findpeople";
 import { BrowserRouter, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -60,7 +61,7 @@ export default class App extends React.Component {
     }
 
     render() {
-        // console.log("this.state: ", this.state);
+        /* console.log("this.state: ", this.state); */
         return (
             <div className="loggedincontainer">
                 <div className="header">
@@ -108,13 +109,27 @@ export default class App extends React.Component {
                                 />
                             )}
                         />
+                        <Route
+                            path="/users"
+                            render={(props) => (
+                                <FindPeople
+                                    first={props.match.first}
+                                    last={this.state.last}
+                                    url={this.state.url}
+                                    key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}
+                                />
+                            )}
+                        />
                     </div>
                     <div className="footer">
-                        <p>
+                        <h6>
                             {" "}
                             <Link to="/logout">Logout</Link>{" "}
-                            <Link to="/">My Profile</Link>
-                        </p>
+                            <Link to="/">My Profile</Link>{" "}
+                            <Link to="/users">Find People</Link>
+                        </h6>
                     </div>
                 </BrowserRouter>
             </div>
