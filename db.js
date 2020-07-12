@@ -101,3 +101,12 @@ exports.getRecentUsers = () => {
     /* console.log("id: ", id); */
     return db.query(`SELECT * FROM users ORDER BY id DESC LIMIT 3`);
 };
+
+// GET USERS WHO MATCH THE SEARCH
+exports.getUserMatches = (val) => {
+    /* console.log("val: ", val); */
+    return db.query(
+        `SELECT first, last, url FROM users WHERE first ILIKE $1;`,
+        [val + "%"]
+    );
+};

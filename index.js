@@ -14,6 +14,7 @@ const {
     updateBio,
     getOtherProfile,
     getRecentUsers,
+    getUserMatches,
 } = require("./db.js");
 const { sendEmail } = require("./ses.js");
 const cookieSession = require("cookie-session");
@@ -179,12 +180,23 @@ app.get("/user", (req, res) => {
 app.get("/api/users/:id", (req, res) => {
     getRecentUsers()
         .then((result) => {
-            console.log("result.rows", result.rows);
+            /* console.log("result.rows", result.rows); */
             res.json(result.rows);
         })
         .catch((err) => {
             console.log("error in GET/users SERVER ROUTE: ", err);
             /* res.sendStatus(500); */
+        });
+});
+
+app.get("/api/usermatches", (req, res) => {
+    /* console.log("query is ", req.query.userName); */
+    getUserMatches(req.query.userName)
+        .then((result) => {
+            res.json(result.rows);
+        })
+        .catch((err) => {
+            console.log("error in GET/usermatches SERVER ROUTE: ", err);
         });
 });
 
