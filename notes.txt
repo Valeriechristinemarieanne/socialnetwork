@@ -4,3 +4,6 @@ TODO:
 - fix Part 6 (add match, history)
 - error routes are missing!!!
 - default pic in findpeople is not rendering
+- create folder for tables
+
+    

@@ -1,5 +1,4 @@
 // This module handles my queries:
-
 const spicedPg = require("spiced-pg");
 /* const bcrypt = require("./bcrypt"); */
 
@@ -105,8 +104,21 @@ exports.getRecentUsers = () => {
 // GET USERS WHO MATCH THE SEARCH
 exports.getUserMatches = (val) => {
     /* console.log("val: ", val); */
+    return db.query(`SELECT * FROM users WHERE first ILIKE $1;`, [val + "%"]);
+};
+
+// SELECT TO DETERMINE WHAT THE BUTTON SHOULD SAY
+exports.getCurrentFriendshipStatus = (myId, otherId) => {
     return db.query(
-        `SELECT first, last, url FROM users WHERE first ILIKE $1;`,
-        [val + "%"]
+        `SELECT * FROM friendships
+           WHERE (receiver_id = $1 AND sender_id = $2)
+           OR (receiver_id = $2 AND sender_id = $1);
+           `,
+        [myId, otherId]
     );
 };
+// INSERT that runs when "send friend request" is clicked. It will INSERT the two users' ids (sender_id and receiver_id)
+
+// UPDATE that runs when "accept friend request" is clicked. It's going to update the accepted column from false to true
+
+// DELETE that runs when "cancel friend request" or "end friendship" is clicked. It will DELETE the two users' row from friendships
