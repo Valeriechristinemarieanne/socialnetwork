@@ -7,36 +7,26 @@ export default function FriendButton({ id }) {
     const [buttonText, setButtonText] = useState("");
 
     useEffect(() => {
-        axios.get("/get-initial-status/:id").then((response) => {
-            console.log("data in first useEffect is: ", response.data.rows[0]);
-            setButtonText(data.rows);
+        axios.get(`/get-initial-status/${id}`).then(({ data }) => {
+            console.log("data in useEffect is: ", data.rows);
+            setButtonText("Send Friend Request");
         });
 
         return () => {
             console.log(`about to replace ${buttonText} with a new value`);
         };
-    }, []);
+    }, [id]);
 
-    /* useEffect(() => {
-        axios.post("/make-friend-request/:id").then((data) => {
-            console.log("data in first useEffect is: ", data.rows);
-            setButtonText(data);
+    const handleClick = () => {
+        axios.post(`/make-friend-request/${id}`).then(({ data }) => {
+            console.log("data in handleClick: ", data);
+            setButtonText("Cancel Friend Request");
         });
-    }, []); */
+    };
 
-    const handleClick = () => {};
-
-    if (buttonText != undefined) {
-        return (
-            <div>
-                <button onClick={handleClick}>{buttonText}</button>
-            </div>
-        );
-    } else {
-        return (
-            <div>
-                <button>End Friendship</button>
-            </div>
-        );
-    }
+    return (
+        <div>
+            <button onClick={handleClick}>{buttonText}</button>
+        </div>
+    );
 }

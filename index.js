@@ -214,11 +214,11 @@ app.get("/api/usermatches", (req, res) => {
 });
 
 app.get("/get-initial-status/:id", (req, res) => {
-    console.log("other id is ", req.params.id);
-    console.log("my id is ", req.session.id);
     getCurrentFriendshipStatus(req.params.id, req.session.id)
         .then((result) => {
-            console.log("result: ", result.rows[0]);
+            console.log("other id is ", req.params.id);
+            console.log("my id is ", req.session.id);
+            console.log("result: ", result);
             res.json(result.rows);
         })
         .catch((err) => {
@@ -226,11 +226,11 @@ app.get("/get-initial-status/:id", (req, res) => {
         });
 });
 
-/* app.post("/make-friend-request/:id", (req, res) => {
+app.post("/make-friend-request/:id", (req, res) => {
     makeFriendRequest(req.params.id, req.session.id)
         .then((result) => {
             console.log("result: ", result);
-            res.json(result.rows);
+            res.json(result);
         })
         .catch((err) => {
             console.log(
@@ -238,7 +238,7 @@ app.get("/get-initial-status/:id", (req, res) => {
                 err
             );
         });
-}); */
+});
 
 app.post("/updatebio", (req, res) => {
     let bio = req.body.bio;

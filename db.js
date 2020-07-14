@@ -120,9 +120,6 @@ exports.getCurrentFriendshipStatus = (myId, otherId) => {
 };
 // INSERT that runs when "send friend request" is clicked. It will INSERT the two users' ids (sender_id and receiver_id)
 exports.makeFriendRequest = (myId, otherId) => {
-    console.log("myId: ", myId);
-    console.log("otherId: ", otherId);
-    console.log("Trying to insert into friendship table");
     return db.query(
         `INSERT INTO friendships(sender_id, receiver_id) VALUES ($2, $1) RETURNING *`,
         [myId, otherId]
