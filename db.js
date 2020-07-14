@@ -127,5 +127,18 @@ exports.makeFriendRequest = (myId, otherId) => {
 };
 
 // UPDATE that runs when "accept friend request" is clicked. It's going to update the accepted column from false to true
+exports.acceptFriendship = (myId, otherId) => {
+    return db.query(
+        `UPDATE friendships SET accept=true WHERE sender_id=$2 AND receiver_id=$3 RETURNING *`,
+        [myId, otherId]
+    );
+};
 
 // DELETE that runs when "cancel friend request" or "end friendship" is clicked. It will DELETE the two users' row from friendships
+exports.deleteFriendship = (myId, otherId) => {
+    return db.query(
+        `DELETE FROM friendships (receiver_id = $1 AND sender_id = $2)
+        OR (receiver_id = $2 AND sender_id = $1) `,
+        [myId, otherId]
+    );
+};

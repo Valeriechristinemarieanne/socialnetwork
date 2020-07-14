@@ -17,6 +17,8 @@ const {
     getUserMatches,
     getCurrentFriendshipStatus,
     makeFriendRequest,
+    deleteFriendship,
+    acceptFriendship,
 } = require("./db.js");
 const { sendEmail } = require("./ses.js");
 const cookieSession = require("cookie-session");
@@ -216,9 +218,6 @@ app.get("/api/usermatches", (req, res) => {
 app.get("/get-initial-status/:id", (req, res) => {
     getCurrentFriendshipStatus(req.params.id, req.session.id)
         .then((result) => {
-            console.log("other id is ", req.params.id);
-            console.log("my id is ", req.session.id);
-            console.log("result: ", result);
             res.json(result.rows);
         })
         .catch((err) => {
@@ -229,12 +228,34 @@ app.get("/get-initial-status/:id", (req, res) => {
 app.post("/make-friend-request/:id", (req, res) => {
     makeFriendRequest(req.params.id, req.session.id)
         .then((result) => {
-            console.log("result: ", result);
             res.json(result);
         })
         .catch((err) => {
             console.log(
                 "error in POST/make friend request SERVER ROUTE: ",
+                err
+            );
+        });
+});
+
+app.post("/endfriendship/:id", (req, res) => {
+    deleteFriendship(req.params.id, req.session.id)
+        .then((result) => {
+            res.json(result);
+        })
+        .catch((err) => {
+            console.log("error in POST/end friendship SERVER ROUTE: ", err);
+        });
+});
+
+app.post("/accept-friend-request/:id", (req, res) => {
+    acceptFriendship(req.params.id, req.session.id)
+        .then((result) => {
+            res.json({ accept: true });
+        })
+        .catch((err) => {
+            console.log(
+                "error in POST/accept friend request SERVER ROUTE: ",
                 err
             );
         });
