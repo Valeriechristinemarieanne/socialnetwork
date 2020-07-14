@@ -15,6 +15,8 @@ const {
     getOtherProfile,
     getRecentUsers,
     getUserMatches,
+    getCurrentFriendshipStatus,
+    makeFriendRequest,
 } = require("./db.js");
 const { sendEmail } = require("./ses.js");
 const cookieSession = require("cookie-session");
@@ -177,6 +179,17 @@ app.get("/user", (req, res) => {
     // send data to app.js
 });
 
+app.get("/api/user/:id", (req, res) => {
+    getOtherProfile(req.params.id)
+        .then((result) => {
+            // console.log("result for user/id: ", result.rows[0]);
+            res.json(result.rows);
+        })
+        .catch((err) => {
+            console.log("error in GET/user/id SERVER ROUTE: ", err);
+        });
+});
+
 app.get("/api/users/:id", (req, res) => {
     getRecentUsers()
         .then((result) => {
@@ -200,16 +213,32 @@ app.get("/api/usermatches", (req, res) => {
         });
 });
 
-app.get("/api/user/:id", (req, res) => {
-    getOtherProfile(req.params.id)
+app.get("/get-initial-status/:id", (req, res) => {
+    console.log("other id is ", req.params.id);
+    console.log("my id is ", req.session.id);
+    getCurrentFriendshipStatus(req.params.id, req.session.id)
         .then((result) => {
-            // console.log("result for user/id: ", result.rows[0]);
+            console.log("result: ", result.rows[0]);
             res.json(result.rows);
         })
         .catch((err) => {
-            console.log("error in GET/user/id SERVER ROUTE: ", err);
+            console.log("error in GET/initial status SERVER ROUTE: ", err);
         });
 });
+
+/* app.post("/make-friend-request/:id", (req, res) => {
+    makeFriendRequest(req.params.id, req.session.id)
+        .then((result) => {
+            console.log("result: ", result);
+            res.json(result.rows);
+        })
+        .catch((err) => {
+            console.log(
+                "error in POST/make friend request SERVER ROUTE: ",
+                err
+            );
+        });
+}); */
 
 app.post("/updatebio", (req, res) => {
     let bio = req.body.bio;

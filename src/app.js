@@ -111,16 +111,7 @@ export default class App extends React.Component {
                         />
                         <Route
                             path="/users"
-                            render={(props) => (
-                                <FindPeople
-                                    first={props.match.first}
-                                    last={this.state.last}
-                                    url={this.state.url}
-                                    key={props.match.url}
-                                    match={props.match}
-                                    history={props.history}
-                                />
-                            )}
+                            render={(props) => <FindPeople />}
                         />
                     </div>
                     <div className="footer">

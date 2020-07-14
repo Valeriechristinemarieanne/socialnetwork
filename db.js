@@ -90,9 +90,7 @@ exports.updateBio = (bio, id) => {
 // FETCH OTHER USERS PROFILE
 exports.getOtherProfile = (id) => {
     // console.log("id: ", id);
-    return db.query(`SELECT first, last, url, bio FROM users WHERE id=$1`, [
-        id,
-    ]);
+    return db.query(`SELECT * FROM users WHERE id=$1`, [id]);
 };
 
 // GET 3 USERS WHO RECENTLY SIGNED UP
@@ -104,7 +102,10 @@ exports.getRecentUsers = () => {
 // GET USERS WHO MATCH THE SEARCH
 exports.getUserMatches = (val) => {
     /* console.log("val: ", val); */
-    return db.query(`SELECT * FROM users WHERE first ILIKE $1;`, [val + "%"]);
+    return db.query(
+        `SELECT * FROM users WHERE first ILIKE $1 OR last ILIKE $1;`,
+        [val + "%"]
+    );
 };
 
 // SELECT TO DETERMINE WHAT THE BUTTON SHOULD SAY
@@ -118,6 +119,15 @@ exports.getCurrentFriendshipStatus = (myId, otherId) => {
     );
 };
 // INSERT that runs when "send friend request" is clicked. It will INSERT the two users' ids (sender_id and receiver_id)
+exports.makeFriendRequest = (myId, otherId) => {
+    console.log("myId: ", myId);
+    console.log("otherId: ", otherId);
+    console.log("Trying to insert into friendship table");
+    return db.query(
+        `INSERT INTO friendships(sender_id, receiver_id) VALUES ($2, $1) RETURNING *`,
+        [myId, otherId]
+    );
+};
 
 // UPDATE that runs when "accept friend request" is clicked. It's going to update the accepted column from false to true
 

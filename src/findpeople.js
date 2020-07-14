@@ -9,7 +9,7 @@ export default function FindPeople({ id }) {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        axios.get(`api/users/:id`).then(({ data }) => {
+        axios.get(`/api/users/:id`).then(({ data }) => {
             /* console.log("data from users: ", data); */
             setUsers(data);
         });
@@ -27,7 +27,7 @@ export default function FindPeople({ id }) {
         }
 
         axios
-            .get(`api/usermatches?userName=${usermatches}`)
+            .get(`/api/usermatches?userName=${usermatches}`)
             .then(({ data }) => {
                 /*  console.log("data from usermatches: ", data); */
                 setUsers(data);

@@ -1,16 +1,11 @@
 import React from "react";
 import axios from "./axios";
+import FriendButton from "./friendbutton";
 
 export default class OtherProfile extends React.Component {
     constructor() {
         super();
-        this.state = {
-            // can be removed as the values are empty
-            first: "",
-            last: "",
-            url: "",
-            bio: "",
-        };
+        this.state = {};
 
         this.componentDidMount = this.componentDidMount.bind(this);
     }
@@ -20,12 +15,13 @@ export default class OtherProfile extends React.Component {
         axios
             .get(`/api/user/${this.props.match.params.id}`)
             .then((response) => {
-                // console.log("response.data[0]: ", response.data[0]);
+                /* console.log("response.data[0]: ", response.data[0]); */
                 this.setState({
                     first: response.data[0].first,
                     last: response.data[0].last,
                     url: response.data[0].url,
                     bio: response.data[0].bio,
+                    id: response.data[0].id,
                 });
             });
     }
@@ -42,6 +38,9 @@ export default class OtherProfile extends React.Component {
                         <strong>About: </strong>
                         {this.state.bio}
                     </p>
+                    <div>
+                        <FriendButton id={this.state.id} />
+                    </div>
                 </div>
             </div>
         );
