@@ -9,16 +9,18 @@ export default function FriendButton({ id }) {
     useEffect(() => {
         if (id) {
             axios.get(`/get-initial-status/${id}`).then((response) => {
-                console.log("response in useEffect is: ", response.data.id);
-                if (response.data.id && response.data.accept == false) {
-                    setButtonText("Cancel Friend Request");
-                } else if (response.data.id && response.data.accept == true) {
-                    setButtonText("End Friendship");
-                } else if (!response.data.id) {
+                console.log("response in useEffect is: ", response.data[0]);
+                if (response.data.length === 0) {
                     setButtonText("Send Friend Request");
                 } else {
-                    if (props.id != response.data.id) {
-                        setButtonText("Accept Friend Request");
+                    if (response.data[0].accepted == true) {
+                        setButtonText("End Friendship");
+                    } else {
+                        if (id === response.data[0].sender_id) {
+                            setButtonText("Accept Friend Request");
+                        } else {
+                            setButtonText("Cancel Friend Request");
+                        }
                     }
                 }
             });
@@ -31,6 +33,7 @@ export default function FriendButton({ id }) {
     }, [id]);
 
     const handleClick = () => {
+        event.preventDefault();
         if (buttonText == "Send Friend Request") {
             axios.post(`/make-friend-request/${id}`).then(({ data }) => {
                 console.log("data in handleClick: ", data);
@@ -41,12 +44,16 @@ export default function FriendButton({ id }) {
             buttonText == "End Friendship"
         ) {
             axios.post(`/endfriendship/${id}`).then((data) => {
+                console.log("Button to cancel friend request has been clicked");
                 console.log("data in handleClick: ", data);
                 setButtonText("Send Friend Request");
             });
         } else {
             if (buttonText == "Accept Friend Request") {
                 axios.post(`/accept-friend-request/${id}`).then((data) => {
+                    console.log(
+                        "Button to accept friend request has been clicked"
+                    );
                     console.log("data in handleClick: ", data);
                     setButtonText("End Friendship");
                 });
