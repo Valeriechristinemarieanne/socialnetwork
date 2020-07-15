@@ -19,6 +19,7 @@ const {
     makeFriendRequest,
     deleteFriendship,
     acceptFriendship,
+    getWannabes,
 } = require("./db.js");
 const { sendEmail } = require("./ses.js");
 const cookieSession = require("cookie-session");
@@ -261,6 +262,13 @@ app.post("/accept-friend-request/:id", (req, res) => {
         });
 });
 
+app.post("/friends-wannabes", (req, res) => {
+    getWannabes().then((result) => {
+        console.log("result: ", result);
+        res.json(result);
+    });
+});
+
 app.post("/updatebio", (req, res) => {
     let bio = req.body.bio;
     let id = req.session.id;
@@ -377,10 +385,8 @@ app.post("/verifypassword", (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-    if (req.session.id) {
-        req.session.id = null;
-        res.redirect("/");
-    }
+    req.session = null;
+    res.redirect("/");
 });
 
 app.get("*", function (req, res) {

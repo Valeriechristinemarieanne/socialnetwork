@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "./axios";
-import { render } from "react-dom";
 
 export default function FriendButton({ id }) {
     console.log("props.id in FriendButton: ", id);
@@ -36,7 +35,6 @@ export default function FriendButton({ id }) {
         event.preventDefault();
         if (buttonText == "Send Friend Request") {
             axios.post(`/make-friend-request/${id}`).then(({ data }) => {
-                console.log("data in handleClick: ", data);
                 setButtonText("Cancel Friend Request");
             });
         } else if (
@@ -44,17 +42,11 @@ export default function FriendButton({ id }) {
             buttonText == "End Friendship"
         ) {
             axios.post(`/endfriendship/${id}`).then((data) => {
-                console.log("Button to cancel friend request has been clicked");
-                console.log("data in handleClick: ", data);
                 setButtonText("Send Friend Request");
             });
         } else {
             if (buttonText == "Accept Friend Request") {
                 axios.post(`/accept-friend-request/${id}`).then((data) => {
-                    console.log(
-                        "Button to accept friend request has been clicked"
-                    );
-                    console.log("data in handleClick: ", data);
                     setButtonText("End Friendship");
                 });
             }

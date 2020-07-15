@@ -5,6 +5,7 @@ import Uploader from "./uploader";
 import Profile from "./profile";
 import OtherProfile from "./otherProfile";
 import FindPeople from "./findpeople";
+import Friends from "./friends";
 import { BrowserRouter, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -64,25 +65,31 @@ export default class App extends React.Component {
         /* console.log("this.state: ", this.state); */
         return (
             <div className="loggedincontainer">
-                <div className="header">
-                    <img className="logo" src="/my-logo.png" />
-
-                    <div className="profilepicanduploader">
-                        {this.state.uploaderIsVisible && (
-                            <Uploader
-                                className="uploader"
-                                setImage={(newurl) => this.setImage(newurl)}
-                            />
-                        )}
-                        <ProfilePic
-                            url={this.state.url}
-                            toggleModal={() => this.toggleModal()}
-                            setImage={() => this.setImage()}
-                        />
-                    </div>
-                </div>
-                {/* <h1>This is my APP component</h1> */}
                 <BrowserRouter>
+                    <div className="header">
+                        <img className="logo" src="/my-logo.png" />
+                        <h6>
+                            {" "}
+                            <a href="/logout">Logout</a>{" "}
+                            <Link to="/">My Profile</Link>{" "}
+                            <Link to="/users">Find People</Link>
+                        </h6>
+                        <div className="profilepicanduploader">
+                            {this.state.uploaderIsVisible && (
+                                <Uploader
+                                    className="uploader"
+                                    setImage={(newurl) => this.setImage(newurl)}
+                                />
+                            )}
+                            <ProfilePic
+                                url={this.state.url}
+                                toggleModal={() => this.toggleModal()}
+                                setImage={() => this.setImage()}
+                            />
+                        </div>
+                    </div>
+                    {/* <h1>This is my APP component</h1> */}
+
                     <div>
                         <Route
                             exact
@@ -113,11 +120,15 @@ export default class App extends React.Component {
                             path="/users"
                             render={(props) => <FindPeople />}
                         />
+                        <Route
+                            path="/friends"
+                            render={(props) => <Friends />}
+                        />
                     </div>
                     <div className="footer">
                         <h6>
                             {" "}
-                            <Link to="/logout">Logout</Link>{" "}
+                            <a href="/logout">Logout</a>{" "}
                             <Link to="/">My Profile</Link>{" "}
                             <Link to="/users">Find People</Link>
                         </h6>

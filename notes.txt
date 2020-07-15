@@ -1,5 +1,4 @@
 TODO: 
-- Logout route needs to be rendered inside route (How to add it to App??) 
 - Add uploader in Profile and make it appear in Profile component while on Profile component
 - fix Part 6 (add match, history)
 - error routes are missing!!!
