@@ -1,5 +1,4 @@
 // src/actions.js
-
 import axios from "axios";
 
 // will contain all of our action creator functions
@@ -7,13 +6,10 @@ import axios from "axios";
 // object that it returns is called an action
 
 export async function receiveFriendsWannabes() {
-    const data = await axios.get("/friends-wannabes");
+    const { data } = await axios.get("/friends-wannabes/");
     console.log("data: ", data);
     return {
         type: "RECEIVE_FRIENDS_WANNABES",
         friendsWannabes: data,
-
-        // we also need to give it the data that we want changed
-        // axios request
     };
 }

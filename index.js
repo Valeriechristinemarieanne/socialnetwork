@@ -262,11 +262,20 @@ app.post("/accept-friend-request/:id", (req, res) => {
         });
 });
 
-app.post("/friends-wannabes", (req, res) => {
-    getWannabes().then((result) => {
-        console.log("result: ", result);
-        res.json(result);
-    });
+app.get("/friends-wannabes/", (req, res) => {
+    console.log("I am in the friends-wannabes server route");
+    const { userId } = req.session;
+    getWannabes(userId)
+        .then((result) => {
+            console.log("result: ", result);
+            res.json(result);
+        })
+        .catch((err) => {
+            console.log(
+                "error in GET/ friends and wannabes SERVER ROUTE: ",
+                err
+            );
+        });
 });
 
 app.post("/updatebio", (req, res) => {

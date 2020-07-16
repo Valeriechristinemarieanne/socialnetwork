@@ -116,13 +116,10 @@ export default class App extends React.Component {
                                 />
                             )}
                         />
+                        <Route path="/friends" render={() => <Friends />} />
                         <Route
                             path="/users"
                             render={(props) => <FindPeople />}
-                        />
-                        <Route
-                            path="/friends"
-                            render={(props) => <Friends />}
                         />
                     </div>
                     <div className="footer">

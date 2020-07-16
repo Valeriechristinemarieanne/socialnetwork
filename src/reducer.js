@@ -1,5 +1,4 @@
 // src/reducer.js
-import { getAllFriends } from "./actions";
 
 // this is one big function with a bunch of conditionals = if action = x, change the state
 export default function reducer(state = {}, action) {

@@ -146,7 +146,8 @@ exports.deleteFriendship = (myId, otherId) => {
 // SELECT USERS WHO ARE WANNABE FRIENDS
 // this will return users that you're friends with and users who have sent YOU a friend request.
 // Users that you've sent a friend request to will NOT show up in this query.
-exports.getWannabes = () => {
+exports.getWannabes = (id) => {
+    console.log("trying to get friends");
     return db.query(
         `SELECT users.id, first, last, url, accepted
             FROM friendships
@@ -154,6 +155,7 @@ exports.getWannabes = () => {
             ON (accepted = false AND receiver_id = $1 AND sender_id = users.id)
             OR (accepted = true AND receiver_id = $1 AND sender_id = users.id)
             OR (accepted = true AND sender_id = $1 AND receiver_id = users.id)
-    `
+    `,
+        [id]
     );
 };
