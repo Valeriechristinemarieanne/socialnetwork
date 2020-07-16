@@ -32,7 +32,6 @@ export default function FriendButton({ id }) {
     }, [id]);
 
     const handleClick = () => {
-        event.preventDefault();
         if (buttonText == "Send Friend Request") {
             axios.post(`/make-friend-request/${id}`).then(({ data }) => {
                 setButtonText("Cancel Friend Request");

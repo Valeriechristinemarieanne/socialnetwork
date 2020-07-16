@@ -9,6 +9,11 @@ import reduxPromise from "redux-promise";
 import { composeWithDevTools } from "redux-devtools-extension";
 import reducer from "./reducer";
 
+import * as io from "socket.io-client";
+
+// hihi, it works :)
+const socket = io.connect();
+
 const store = createStore(
     reducer,
     composeWithDevTools(applyMiddleware(reduxPromise))

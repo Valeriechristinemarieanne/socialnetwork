@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { receiveFriendsWannabes } from "./actions";
+import {
+    receiveFriendsWannabes,
+    acceptFriendRequest,
+    unfriend,
+} from "./actions";
 import { Link } from "react-router-dom";
 
 export default function Friends() {
@@ -10,11 +14,12 @@ export default function Friends() {
         dispatch(receiveFriendsWannabes());
     }, []);
 
-    const friends = useSelector(
-        (state) =>
+    const friends = useSelector((state) => {
+        return (
             state.friendsWannabes &&
             state.friendsWannabes.filter((friend) => friend.accepted == true)
-    );
+        );
+    });
     const wannabes = useSelector(
         (state) =>
             state.friendsWannabes &&
@@ -36,6 +41,11 @@ export default function Friends() {
                             {friend.first} {friend.last}
                         </Link>
                     </h4>
+                    <div>
+                        <button onClick={() => dispatch(unfriend(friend.id))}>
+                            End Friendship
+                        </button>
+                    </div>
                 </div>
             ))}
 
@@ -49,6 +59,15 @@ export default function Friends() {
                             {wannabe.first} {wannabe.last}
                         </Link>
                     </h4>
+                    <div>
+                        <button
+                            onClick={() =>
+                                dispatch(acceptFriendRequest(wannabe.id))
+                            }
+                        >
+                            Accept Friend Request
+                        </button>
+                    </div>
                 </div>
             ))}
         </div>

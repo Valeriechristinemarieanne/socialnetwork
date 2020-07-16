@@ -30,6 +30,8 @@ const { s3Url } = require("./config.json");
 console.log("s3Url: ", s3Url);
 app.use(compression());
 app.use(express.static("./public"));
+const server = require("http").Server(app);
+const io = require("socket.io")(server, { origins: "localhost:8080" });
 
 app.use(
     cookieSession({
@@ -407,6 +409,13 @@ app.get("*", function (req, res) {
     }
 });
 
-app.listen(8080, function () {
+server.listen(8080, function () {
     console.log("I'm listening.");
+});
+
+io.on("connection", (socket) => {
+    console.log(`socket with id ${socket.id} just CONNECTED`);
+    socket.on("disconnect", () => {
+        console.log(`socket with id ${socket.id} just DISCONNECTED`);
+    });
 });
