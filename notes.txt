@@ -4,5 +4,6 @@ TODO:
 - error routes are missing!!!
 - default pic in findpeople is not rendering
 - create folder for tables
+- I can still be friends with myself :(
 
     

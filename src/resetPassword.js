@@ -16,17 +16,10 @@ export default class ResetPassword extends React.Component {
 
     handleClick(e) {
         e.preventDefault();
-        // console.log("Tryin' to handle a click here");
         const self = this;
         axios
             .post("/resetpassword", self.state)
             .then(function (response) {
-                // console.log(
-                //     "response from POST/password/reset/start",
-                //     response
-                // );
-                console.log("self.state in post resetpassword: ", self.state);
-
                 self.setState({ apple: 11 });
             })
             .catch(function (err) {
@@ -40,10 +33,6 @@ export default class ResetPassword extends React.Component {
         axios
             .post("/verifypassword", self.state)
             .then(function (response) {
-                // console.log(
-                //     "response from POST/password/reset/verify",
-                //     response
-                // );
                 self.setState({ apple: 12 });
             })
             .catch(function (err) {
@@ -52,8 +41,6 @@ export default class ResetPassword extends React.Component {
     }
 
     getCurrentDisplay() {
-        // we want to put something in state that indicates which display we want to show
-        // we'll have to update this property in state whenever we want to show the next display. where in our code should we update this property in state???
         if (this.state.apple == 10) {
             return (
                 <div className="resetpassword">

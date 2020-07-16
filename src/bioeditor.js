@@ -13,7 +13,6 @@ export default class BioEditor extends React.Component {
         };
     }
 
-    // changehandler to keep to users typed draft bio in state
     handleChange(e) {
         this.setState({
             bio: e.target.value,
@@ -27,7 +26,6 @@ export default class BioEditor extends React.Component {
             axios
                 .post("/updatebio", { bio: self.state.bio })
                 .then(function (response) {
-                    // console.log("response from POST updatebio", response);
                     self.props.setBio(self.state.bio);
                     self.setState({
                         editorIsVisible: false,
@@ -43,14 +41,12 @@ export default class BioEditor extends React.Component {
         }
     }
 
-    // changehandler to show the bio editor
     editBio(e) {
         this.setState({
             editorIsVisible: true,
         });
     }
 
-    // Handling three UI states
     renderBio() {
         if (this.state.editorIsVisible) {
             return (

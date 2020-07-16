@@ -6,16 +6,13 @@ export default class OtherProfile extends React.Component {
     constructor() {
         super();
         this.state = {};
-
         this.componentDidMount = this.componentDidMount.bind(this);
     }
 
     componentDidMount() {
-        // console.log("Tryin to mount here");
         axios
             .get(`/api/user/${this.props.match.params.id}`)
             .then((response) => {
-                /* console.log("response.data[0]: ", response.data[0]); */
                 this.setState({
                     first: response.data[0].first,
                     last: response.data[0].last,
@@ -45,15 +42,4 @@ export default class OtherProfile extends React.Component {
             </div>
         );
     }
-
-    //      <Route
-    //      path="/user/:id"
-    //      render={props => (
-    //          <OtherProfile
-    //              key={props.match.url}
-    //              match={props.match}
-    //              history={props.history}
-    //          />
-    //      )}
-    //  />
 }

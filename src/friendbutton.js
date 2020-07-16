@@ -2,13 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "./axios";
 
 export default function FriendButton({ id }) {
-    console.log("props.id in FriendButton: ", id);
     const [buttonText, setButtonText] = useState("");
-
     useEffect(() => {
         if (id) {
             axios.get(`/get-initial-status/${id}`).then((response) => {
-                console.log("response in useEffect is: ", response.data[0]);
                 if (response.data.length === 0) {
                     setButtonText("Send Friend Request");
                 } else {
@@ -26,9 +23,7 @@ export default function FriendButton({ id }) {
         } else {
             return;
         }
-        return () => {
-            console.log(`about to replace ${buttonText} with a new value`);
-        };
+        return () => {};
     }, [id]);
 
     const handleClick = () => {

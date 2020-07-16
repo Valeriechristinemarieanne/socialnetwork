@@ -21,10 +21,8 @@ export default class App extends React.Component {
         };
     }
 
-    // lifecycle methods
     componentDidMount() {
         axios.get("/user").then((response) => {
-            // console.log("response: ", response);
             let newurl;
             if (response.data[0].url) {
                 newurl = response.data[0].url;
@@ -37,7 +35,6 @@ export default class App extends React.Component {
                 url: newurl,
                 bio: response.data[0].bio,
             });
-            // console.log("this.state: ", this.state);
         });
     }
     toggleModal() {
@@ -47,12 +44,9 @@ export default class App extends React.Component {
     }
 
     setImage(newurl) {
-        // console.log("newurl: ", newurl);
-
         this.setState({
             url: newurl,
         });
-        console.log("this.state:", this.state);
     }
 
     setBio(newbio) {
@@ -62,7 +56,6 @@ export default class App extends React.Component {
     }
 
     render() {
-        /* console.log("this.state: ", this.state); */
         return (
             <div className="loggedincontainer">
                 <BrowserRouter>
@@ -89,8 +82,6 @@ export default class App extends React.Component {
                             />
                         </div>
                     </div>
-                    {/* <h1>This is my APP component</h1> */}
-
                     <div>
                         <Route
                             exact

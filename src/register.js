@@ -17,23 +17,17 @@ export default class Register extends React.Component {
         this.setState({
             [e.target.name]: e.target.value,
         });
-        /* console.log("this.state: ", this.state); */
     }
     registerMe(e) {
         const self = this;
         e.preventDefault();
-        /* console.log("I want to register"); */
-        /* console.log("this in post register: ", this); */
-        /* console.log("state in post register: ", state); */
         axios
             .post("/register", this.state)
             .then(function (response) {
-                /* console.log("response from POST/Register", response); */
                 location.replace("/");
             })
             .catch(function (err) {
                 console.log("err in POST/Register:", err);
-                console.log("this in axios post register: ", self);
                 self.setState({ error: true });
             });
     }

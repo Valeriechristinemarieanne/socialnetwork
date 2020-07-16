@@ -8,33 +8,32 @@ export default class Login extends React.Component {
         this.state = {
             email: "",
             password: "",
+            error: false,
         };
     }
     handleChange(e) {
         this.setState({
             [e.target.name]: e.target.value,
         });
-        /* console.log("this.state: ", this.state); */
     }
     logMe(e) {
         e.preventDefault();
-        /* console.log("I want to log in"); */
-        /* console.log("this in post log in: ", this); */
-        /* console.log("state in post login: ", state); */
+
         axios
             .post("/login", this.state)
             .then(function (response) {
-                /* console.log("response from POST/Login", response); */
                 location.replace("/");
             })
             .catch(function (err) {
                 console.log("err in POST/Login:", err);
+                setState({ error: true });
             });
     }
     render() {
         return (
             <div className="logincontainer">
                 <img src="/my-logo.png" />
+                <div>{this.state.error && <p>Something went wrong</p>}</div>
                 <div className="logincontainerinput">
                     {" "}
                     <input
