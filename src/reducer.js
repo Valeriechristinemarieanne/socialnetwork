@@ -5,7 +5,7 @@ export default function reducer(state = {}, action) {
     if (action.type == "RECEIVE_FRIENDS_WANNABES") {
         return {
             ...state,
-            allFriends: action.friendsWannabes,
+            friendsWannabes: action.friendsWannabes,
         };
     }
     return state;

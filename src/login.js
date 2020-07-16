@@ -38,14 +38,14 @@ export default class Login extends React.Component {
                 <div className="logincontainerinput">
                     {" "}
                     <input
-                        autocomplete="off"
+                        autoComplete="off"
                         name="email"
                         placeholder="Email"
                         type="text"
                         onChange={(e) => this.handleChange(e)}
                     />
                     <input
-                        autocomplete="off"
+                        autoComplete="off"
                         name="password"
                         placeholder="Password"
                         type="password"

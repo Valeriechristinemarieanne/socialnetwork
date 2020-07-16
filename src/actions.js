@@ -7,9 +7,9 @@ import axios from "axios";
 
 export async function receiveFriendsWannabes() {
     const { data } = await axios.get("/friends-wannabes/");
-    console.log("data: ", data);
+    /* console.log("data: ", data); */
     return {
         type: "RECEIVE_FRIENDS_WANNABES",
-        friendsWannabes: data,
+        friendsWannabes: data.rows,
     };
 }

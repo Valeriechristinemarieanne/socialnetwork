@@ -147,7 +147,7 @@ exports.deleteFriendship = (myId, otherId) => {
 // this will return users that you're friends with and users who have sent YOU a friend request.
 // Users that you've sent a friend request to will NOT show up in this query.
 exports.getWannabes = (id) => {
-    console.log("trying to get friends");
+    /* console.log("trying to get friends"); */
     return db.query(
         `SELECT users.id, first, last, url, accepted
             FROM friendships

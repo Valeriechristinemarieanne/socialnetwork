@@ -263,11 +263,11 @@ app.post("/accept-friend-request/:id", (req, res) => {
 });
 
 app.get("/friends-wannabes/", (req, res) => {
-    console.log("I am in the friends-wannabes server route");
-    const { userId } = req.session;
-    getWannabes(userId)
+    /* console.log("I am in the friends-wannabes server route"); */
+    const { id } = req.session;
+    getWannabes(id)
         .then((result) => {
-            console.log("result: ", result);
+            /* console.log("result: ", result); */
             res.json(result);
         })
         .catch((err) => {
