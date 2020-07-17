@@ -33,43 +33,47 @@ export default function Friends() {
     return (
         <div>
             <h4>Your friends</h4>
-            {friends.map((friend) => (
-                <div className="mappedusers" key={friend.id}>
-                    <img className="mappedusersimg" src={friend.url} />
-                    <h4>
-                        <Link to={`/user/${friend.id}`}>
-                            {friend.first} {friend.last}
-                        </Link>
-                    </h4>
-                    <div>
-                        <button onClick={() => dispatch(unfriend(friend.id))}>
-                            End Friendship
-                        </button>
+            {friends &&
+                friends.map((friend) => (
+                    <div className="mappedusers" key={friend.id}>
+                        <img className="mappedusersimg" src={friend.url} />
+                        <h4>
+                            <Link to={`/user/${friend.id}`}>
+                                {friend.first} {friend.last}
+                            </Link>
+                        </h4>
+                        <div>
+                            <button
+                                onClick={() => dispatch(unfriend(friend.id))}
+                            >
+                                End Friendship
+                            </button>
+                        </div>
                     </div>
-                </div>
-            ))}
+                ))}
 
             <h4>Accept new friends!</h4>
 
-            {wannabes.map((wannabe) => (
-                <div className="mappedusers" key={wannabe.id}>
-                    <img className="mappedusersimg" src={wannabe.url} />
-                    <h4>
-                        <Link to={`/user/${wannabe.id}`}>
-                            {wannabe.first} {wannabe.last}
-                        </Link>
-                    </h4>
-                    <div>
-                        <button
-                            onClick={() =>
-                                dispatch(acceptFriendRequest(wannabe.id))
-                            }
-                        >
-                            Accept Friend Request
-                        </button>
+            {wannabes &&
+                wannabes.map((wannabe) => (
+                    <div className="mappedusers" key={wannabe.id}>
+                        <img className="mappedusersimg" src={wannabe.url} />
+                        <h4>
+                            <Link to={`/user/${wannabe.id}`}>
+                                {wannabe.first} {wannabe.last}
+                            </Link>
+                        </h4>
+                        <div>
+                            <button
+                                onClick={() =>
+                                    dispatch(acceptFriendRequest(wannabe.id))
+                                }
+                            >
+                                Accept Friend Request
+                            </button>
+                        </div>
                     </div>
-                </div>
-            ))}
+                ))}
         </div>
     );
 }

@@ -15,7 +15,7 @@ export async function receiveFriendsWannabes() {
 
 export async function acceptFriendRequest(id) {
     const { data } = await axios.post(`/accept-friend-request/${id}`);
-    console.log("data: ", data);
+    console.log("data: ", data, id);
     return {
         type: "ACCEPT_FRIEND_REQUEST",
         id,

@@ -159,3 +159,7 @@ exports.getWannabes = (id) => {
         [id]
     );
 };
+
+// your db query for getting the last 10  messages will need to be a JOIN
+// you'll need info from both the users table and chats table (user's first name, last name, url and chat msg)
+/* exports.getLastTenMsgs; */

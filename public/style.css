@@ -233,3 +233,10 @@ button {
     justify-content: flex-start;
     height: 80px;
 } */
+
+.chat-messages-container {
+    height: 300px;
+    width: 80%;
+    overflow-y: scroll;
+    margin: 20px;
+}

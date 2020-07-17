@@ -6,6 +6,8 @@ import Profile from "./profile";
 import OtherProfile from "./otherProfile";
 import FindPeople from "./findpeople";
 import Friends from "./friends";
+import Chat from "./chat";
+
 import { BrowserRouter, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -66,7 +68,8 @@ export default class App extends React.Component {
                             <a href="/logout">Logout</a>{" "}
                             <Link to="/">My Profile</Link>{" "}
                             <Link to="/users">Find People</Link>{" "}
-                            <Link to="/friends">Friends</Link>
+                            <Link to="/friends">Friends</Link>{" "}
+                            <Link to="/chat">Chat</Link>
                         </h3>
                         <div className="profilepicanduploader">
                             {this.state.uploaderIsVisible && (
@@ -113,6 +116,7 @@ export default class App extends React.Component {
                             path="/users"
                             render={(props) => <FindPeople />}
                         />
+                        <Route path="/chat" component={Chat} />
                     </div>
                     <div className="footer">
                         <h6>

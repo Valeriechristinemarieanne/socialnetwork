@@ -21,6 +21,7 @@ const {
     acceptFriendship,
     getWannabes,
 } = require("./db.js");
+
 const { sendEmail } = require("./ses.js");
 const cookieSession = require("cookie-session");
 const cryptoRandomString = require("crypto-random-string");
@@ -30,18 +31,24 @@ const { s3Url } = require("./config.json");
 console.log("s3Url: ", s3Url);
 app.use(compression());
 app.use(express.static("./public"));
+
+// Socket Boilerplate
 const server = require("http").Server(app);
 const io = require("socket.io")(server, { origins: "localhost:8080" });
 
-app.use(
-    cookieSession({
-        secret: `Ì am always angry.`,
-        maxAge: 1000 * 60 * 60 * 24 * 14,
-    })
-);
+// Cookiesession & passing cookie access to socket
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm always angry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 90,
+});
 
+app.use(cookieSessionMiddleware);
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
+
+// Express
 app.use(express.json());
-
 app.use(
     express.urlencoded({
         extended: false,
@@ -73,7 +80,6 @@ const uploader = multer({
 
 // this middleware works for all post requests
 app.use(csurf());
-
 app.use(function (req, res, next) {
     res.cookie("mytoken", req.csrfToken());
     next();
@@ -356,7 +362,38 @@ server.listen(8080, function () {
 
 io.on("connection", (socket) => {
     console.log(`socket with id ${socket.id} just CONNECTED`);
-    socket.on("disconnect", () => {
+
+    // we only want to do socket when a user is logged in
+    if (!socket.request.session.id) {
         console.log(`socket with id ${socket.id} just DISCONNECTED`);
+        return socket.disconnect(true);
+    }
+
+    // if user makes it at this point, then they're logged in and have successfully connected to sockets
+    const id = socket.request.session.id;
+
+    /*   // this is a good place to go get the last 10 chat messages
+    getLastTenMsgs().then((data) => {
+        console.log(data.rows);
+
+        // once you have the messages, you'll want to send them back to the client!
+        io.sockets.emit("chatMessages", data.rows);
+    }); */
+
+    socket.on("My amazing chat message", (newMsg) => {
+        console.log("This message is coming from chat.js component: ", newMsg);
+        console.log("user who sent newMsg is: ", id);
+        console.log("our current socket.id: ", socket.id);
+
+        // 1. do a db query to store the new chat message into the chat table!!!
+        // 2. do a db query to get info about hte user (first, name, last name, and img) - will probably need to be a join
+        // once you have all that good data, we want to EMIT our message object to EVERYONE so everyone can see it immediately!!!!
+
+        // we're emitting the message back to the client
+        io.sockets.emit("addChatMsg", newMsg);
     });
+
+    /* socket.on("disconnect", () => {
+        console.log(`socket with id ${socket.id} just DISCONNECTED`);
+    }); */
 });

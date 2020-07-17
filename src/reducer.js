@@ -7,17 +7,30 @@ export default function reducer(state = {}, action) {
             ...state,
             friendsWannabes: action.friendsWannabes,
         };
-    } else if (action.type == "ACCEPT_FRIEND_REQUEST") {
-        console.log(state);
+    }
+
+    if (action.type == "ACCEPT_FRIEND_REQUEST") {
         return {
             ...state,
-            friends: state.friendsWannabes.map((friend) => ({
-                accepted: true,
-            })),
-        };
-    } else if ((action.type = "UNFRIEND")) {
-        return {
-            ...state,
+            friendsWannabes: state.friendsWannabes.map((friend) => {
+                if (friend.id == action.id) {
+                    friend.accepted = true;
+                }
+                return friend;
+            }),
         };
     }
+
+    if (action.type == "UNFRIEND") {
+        /*  console.log("state: ", state);
+        console.log("action.id: ", action.id);
+        console.log("friend.id: ", friend.id); */
+        return {
+            ...state,
+            friendsWannabes: state.friendsWannabes.filter((friend) => {
+                return friend.id != action.id;
+            }),
+        };
+    }
+    return state;
 }
