@@ -161,5 +161,12 @@ exports.getWannabes = (id) => {
 };
 
 // your db query for getting the last 10  messages will need to be a JOIN
+exports.getTenLastMsgs = () => {
+    console.log("trying to get 10 last messages");
+    return db.query(
+        `SELECT users.id, chats.id AS message_id, first, last, url, message, chats.created_at FROM chats JOIN users on (sender_id = users.id) LIMIT 10`
+    );
+};
+
 // you'll need info from both the users table and chats table (user's first name, last name, url and chat msg)
 /* exports.getLastTenMsgs; */

@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 export default function Chat() {
     const elemRef = useRef();
     const chatMessages = useSelector((state) => state && state.chatMessages);
-    /* console.log("Here are my last 10 chat messages"); */
+    console.log("Here are my last 10 chat messages", chatMessages);
 
     // you want to run this function every time you get a new chat message
     useEffect(() => {

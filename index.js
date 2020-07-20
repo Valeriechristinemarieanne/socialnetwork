@@ -20,6 +20,7 @@ const {
     deleteFriendship,
     acceptFriendship,
     getWannabes,
+    getTenLastMsgs,
 } = require("./db.js");
 
 const { sendEmail } = require("./ses.js");
@@ -371,14 +372,18 @@ io.on("connection", (socket) => {
 
     // if user makes it at this point, then they're logged in and have successfully connected to sockets
     const id = socket.request.session.id;
+    console.log("id in io.on connection before getting messages: ", id);
 
-    /*   // this is a good place to go get the last 10 chat messages
-    getLastTenMsgs().then((data) => {
-        console.log(data.rows);
-
-        // once you have the messages, you'll want to send them back to the client!
-        io.sockets.emit("chatMessages", data.rows);
-    }); */
+    // this is a good place to go get the last 10 chat messages
+    getTenLastMsgs()
+        .then((data) => {
+            console.log("data.rows: ", data.rows);
+            // once you have the messages, you'll want to send them back to the client!
+            io.sockets.emit("chatMessages", data.rows);
+        })
+        .catch((err) => {
+            console.log("error in get 10 last messages: ", err);
+        });
 
     socket.on("My amazing chat message", (newMsg) => {
         console.log("This message is coming from chat.js component: ", newMsg);
