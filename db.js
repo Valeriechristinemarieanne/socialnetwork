@@ -121,7 +121,7 @@ exports.getCurrentFriendshipStatus = (myId, otherId) => {
 // INSERT that runs when "send friend request" is clicked. It will INSERT the two users' ids (sender_id and receiver_id)
 exports.makeFriendRequest = (myId, otherId) => {
     return db.query(
-        `INSERT INTO friendships(sender_id, receiver_id) VALUES ($2, $1) RETURNING *`,
+        `INSERT INTO friendships (sender_id, receiver_id) VALUES ($2, $1) RETURNING *`,
         [myId, otherId]
     );
 };
@@ -161,6 +161,7 @@ exports.getWannabes = (id) => {
 };
 
 // your db query for getting the last 10  messages will need to be a JOIN
+// you'll need info from both the users table and chats table (user's first name, last name, url and chat msg)
 exports.getTenLastMsgs = () => {
     console.log("trying to get 10 last messages");
     return db.query(
@@ -168,5 +169,18 @@ exports.getTenLastMsgs = () => {
     );
 };
 
-// you'll need info from both the users table and chats table (user's first name, last name, url and chat msg)
-/* exports.getLastTenMsgs; */
+exports.insertNewMsg = (id, msg) => {
+    console.log("insert new chat message");
+    return db.query(
+        `INSERT INTO chats (sender_id, message) VALUES ($1, $2) RETURNING *`,
+        [id, msg]
+    );
+};
+
+/* exports.getNewMsg = () => {
+    console.log("trying to get latest msg");
+    return db.query(
+        `SELECT users.id, chats.id AS message_id, first, last, url, message, chats.created_at FROM chats JOIN users on (sender_id = users.id) LIMIT 1`
+    );
+};
+ */

@@ -30,3 +30,18 @@ export async function unfriend(id) {
         id,
     };
 }
+
+export function chatMessages(msgs) {
+    return {
+        type: "TEN_LAST_MESSAGES",
+        msgs,
+    };
+}
+
+export function chatMessage(msg) {
+    console.log("msg", msg);
+    return {
+        type: "ADD_NEW_MESSAGE",
+        msg,
+    };
+}

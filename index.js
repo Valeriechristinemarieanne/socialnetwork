@@ -21,6 +21,8 @@ const {
     acceptFriendship,
     getWannabes,
     getTenLastMsgs,
+    insertNewMsg,
+    getNewMsg,
 } = require("./db.js");
 
 const { sendEmail } = require("./ses.js");
@@ -377,7 +379,7 @@ io.on("connection", (socket) => {
     // this is a good place to go get the last 10 chat messages
     getTenLastMsgs()
         .then((data) => {
-            console.log("data.rows: ", data.rows);
+            /* console.log("data.rows: ", data.rows); */
             // once you have the messages, you'll want to send them back to the client!
             io.sockets.emit("chatMessages", data.rows);
         })
@@ -386,16 +388,35 @@ io.on("connection", (socket) => {
         });
 
     socket.on("My amazing chat message", (newMsg) => {
-        console.log("This message is coming from chat.js component: ", newMsg);
+        /* console.log("This message is coming from chat.js component: ", newMsg);
         console.log("user who sent newMsg is: ", id);
-        console.log("our current socket.id: ", socket.id);
+        console.log("our current socket.id: ", socket.id); */
 
         // 1. do a db query to store the new chat message into the chat table!!!
+        insertNewMsg(id, newMsg)
+            .then((data) => {
+                console.log("data.rows: ", data.rows);
+                getUserInfo(id)
+                    .then((result) => {
+                        console.log("result[0].first: ", result[0].first);
+                        const allGoodData = {
+                            ...data.rows[0],
+                            first: result[0].first,
+                            last: result[0].last,
+                            url: result[0].url,
+                        };
+                        io.sockets.emit("chatMessage", allGoodData);
+                    })
+                    .catch((err) => {
+                        console.log("error in GET/user SERVER ROUTE: ", err);
+                    });
+            })
+            .catch((err) => {
+                console.log("error in ADDING NEW CHAT MESSAGE: ", err);
+            });
         // 2. do a db query to get info about hte user (first, name, last name, and img) - will probably need to be a join
-        // once you have all that good data, we want to EMIT our message object to EVERYONE so everyone can see it immediately!!!!
 
-        // we're emitting the message back to the client
-        io.sockets.emit("addChatMsg", newMsg);
+        // once you have all that good data, we want to EMIT our message object to EVERYONE so everyone can see it immediately!!!!
     });
 
     /* socket.on("disconnect", () => {

@@ -32,5 +32,21 @@ export default function reducer(state = {}, action) {
             }),
         };
     }
+
+    if (action.type == "TEN_LAST_MESSAGES") {
+        return {
+            ...state,
+            chatMessages: action.msgs,
+        };
+    }
+
+    if (action.type == "ADD_NEW_MESSAGE") {
+        const newMsgs = state.chatMessages.concat(action.msg);
+        return {
+            ...state,
+            chatMessages: newMsgs,
+        };
+    }
+
     return state;
 }

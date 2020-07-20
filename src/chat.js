@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 export default function Chat() {
     const elemRef = useRef();
     const chatMessages = useSelector((state) => state && state.chatMessages);
-    console.log("Here are my last 10 chat messages", chatMessages);
-
+    /* console.log("Here are my last 10 chat messages", chatMessages);
+     */
     // you want to run this function every time you get a new chat message
     useEffect(() => {
         /* console.log("elementRef: ", elemRef);
@@ -16,7 +16,7 @@ export default function Chat() {
 
         elemRef.current.scrollTop =
             elemRef.current.scrollHeight - elemRef.current.clientHeight;
-    }, []);
+    }, [chatMessages]);
 
     const keyCheck = (e) => {
         /* console.log("value: ", e.target.value); */
@@ -33,16 +33,14 @@ export default function Chat() {
         <div>
             <h4 className="chat-title">Welcome to our community chat</h4>
             <div className="chat-messages-container" ref={elemRef}>
-                <p>Chat messages will go here</p>
-                <p>Chat messages will go here</p>
-                <p>Chat messages will go here</p>
-                <p>Chat messages will go here</p>
-                <p>Chat messages will go here</p>
-                <p>Chat messages will go here</p>
-                <p>Chat messages will go here</p>
-                <p>Chat messages will go here</p>
-                <p>Chat messages will go here</p>
-                <p>Chat messages will go here</p>
+                {chatMessages &&
+                    chatMessages.map((each) => (
+                        <div key={each.message_id}>
+                            <p>{each.first} says </p>
+                            <p>{each.message}</p>
+                            <p>at {each.created_at}</p>
+                        </div>
+                    ))}
             </div>
             <textarea
                 placeholder="Add your message here"
