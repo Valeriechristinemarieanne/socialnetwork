@@ -1,9 +1,6 @@
 TODO: 
 - Add uploader in Profile and make it appear in Profile component while on Profile component
-- fix Part 6 (add match, history)
-- error routes are missing!!!
 - default pic in findpeople is not rendering
-- create folder for tables
-- I can still be friends with myself :(
+
 
     

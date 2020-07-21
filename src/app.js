@@ -63,14 +63,16 @@ export default class App extends React.Component {
                 <BrowserRouter>
                     <div className="header">
                         <img className="logo" src="/my-logo.png" />
-                        <h3>
-                            {" "}
-                            <a href="/logout">Logout</a>{" "}
-                            <Link to="/">My Profile</Link>{" "}
-                            <Link to="/users">Find People</Link>{" "}
-                            <Link to="/friends">Friends</Link>{" "}
-                            <Link to="/chat">Chat</Link>
-                        </h3>
+                        <div className="linkcontainer">
+                            <h3>
+                                {" "}
+                                <a href="/logout">Logout</a>{" "}
+                                <Link to="/">My Profile</Link>{" "}
+                                <Link to="/users">Find People</Link>{" "}
+                                <Link to="/friends">Friends</Link>{" "}
+                                <Link to="/chat">Chat</Link>
+                            </h3>
+                        </div>
                         <div className="profilepicanduploader">
                             {this.state.uploaderIsVisible && (
                                 <Uploader

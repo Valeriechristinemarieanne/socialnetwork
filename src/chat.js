@@ -36,9 +36,14 @@ export default function Chat() {
                 {chatMessages &&
                     chatMessages.map((each) => (
                         <div key={each.message_id}>
-                            <p>{each.first} says </p>
-                            <p>{each.message}</p>
-                            <p>at {each.created_at}</p>
+                            <img src={each.url}></img>
+                            <div className="chatmessages">
+                                <p>
+                                    <strong>{each.first} says</strong>{" "}
+                                </p>
+                                <p>{each.message}</p>
+                                <p>at {each.created_at}</p>
+                            </div>
                         </div>
                     ))}
             </div>

@@ -13,13 +13,20 @@ export default class OtherProfile extends React.Component {
         axios
             .get(`/api/user/${this.props.match.params.id}`)
             .then((response) => {
-                this.setState({
-                    first: response.data[0].first,
-                    last: response.data[0].last,
-                    url: response.data[0].url,
-                    bio: response.data[0].bio,
-                    id: response.data[0].id,
-                });
+                console.log("response: ", response);
+                console.log("response.data: ", response.data);
+
+                if (response.data.ownProfile) {
+                    this.props.history.push("/");
+                } else {
+                    this.setState({
+                        first: response.data[0].first,
+                        last: response.data[0].last,
+                        url: response.data[0].url,
+                        bio: response.data[0].bio,
+                        id: response.data[0].id,
+                    });
+                }
             });
     }
 

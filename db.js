@@ -176,11 +176,3 @@ exports.insertNewMsg = (id, msg) => {
         [id, msg]
     );
 };
-
-/* exports.getNewMsg = () => {
-    console.log("trying to get latest msg");
-    return db.query(
-        `SELECT users.id, chats.id AS message_id, first, last, url, message, chats.created_at FROM chats JOIN users on (sender_id = users.id) LIMIT 1`
-    );
-};
- */

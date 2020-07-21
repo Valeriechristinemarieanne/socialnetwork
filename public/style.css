@@ -227,16 +227,33 @@ button {
     margin: 10px;
 }
 
-/* .footer {
+.linkcontainer {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    height: 80px;
-} */
+    justify-content: flex-end;
+}
+
+.linkcontainer h3 {
+    align-self: center;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    margin: 20px;
+}
 
 .chat-messages-container {
     height: 300px;
     width: 80%;
     overflow-y: scroll;
     margin: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+div.chat-messages-container img {
+    height: 100px;
+    width: 100px;
+    margin: 10px;
 }

@@ -139,28 +139,34 @@ app.post("/register", function (req, res) {
 });
 
 app.post("/login", (req, res) => {
-    let userEmail = req.body.email;
-    let userPassword = req.body.password;
-    getPassword(userEmail)
-        .then((result) => {
-            const hashedUserPasswordFromDB = result.rows[0].password;
-            compare(userPassword, hashedUserPasswordFromDB)
-                .then((match) => {
-                    if (match) {
-                        req.session.id = result.rows[0].id;
-                        res.json({ success: true });
-                    } else {
+    console.log("we are entering the login route");
+    if (req.body.email) {
+        let userEmail = req.body.email;
+        let userPassword = req.body.password;
+        getPassword(userEmail)
+            .then((result) => {
+                const hashedUserPasswordFromDB = result.rows[0].password;
+                compare(userPassword, hashedUserPasswordFromDB)
+                    .then((match) => {
+                        if (match) {
+                            req.session.id = result.rows[0].id;
+                            res.json({ success: true });
+                        } else {
+                            res.json({ success: false });
+                        }
+                    })
+                    .catch((err) => {
+                        console.log("error in POST / login compare: ", err);
                         res.json({ success: false });
-                    }
-                })
-                .catch((err) => {
-                    console.log("error in POST / login compare: ", err);
-                    res.sendStatus(500);
-                });
-        })
-        .catch((err) => {
-            console.log("error in POST/login: ", err);
-        });
+                    });
+            })
+            .catch((err) => {
+                console.log("error in POST/login: ", err);
+                res.json({ success: false });
+            });
+    } else {
+        res.json({ success: false });
+    }
 });
 
 app.get("/user", (req, res) => {
@@ -175,13 +181,17 @@ app.get("/user", (req, res) => {
 });
 
 app.get("/api/user/:id", (req, res) => {
-    getOtherProfile(req.params.id)
-        .then((result) => {
-            res.json(result.rows);
-        })
-        .catch((err) => {
-            console.log("error in GET/user/id SERVER ROUTE: ", err);
-        });
+    if (req.session.id == req.params.id) {
+        res.json({ ownProfile: true });
+    } else {
+        getOtherProfile(req.params.id)
+            .then((result) => {
+                res.json(result.rows);
+            })
+            .catch((err) => {
+                console.log("error in GET/user/id SERVER ROUTE: ", err);
+            });
+    }
 });
 
 app.get("/api/users/:id", (req, res) => {
@@ -376,11 +386,9 @@ io.on("connection", (socket) => {
     const id = socket.request.session.id;
     console.log("id in io.on connection before getting messages: ", id);
 
-    // this is a good place to go get the last 10 chat messages
+    // requesting the last 10 messages in chat
     getTenLastMsgs()
         .then((data) => {
-            /* console.log("data.rows: ", data.rows); */
-            // once you have the messages, you'll want to send them back to the client!
             io.sockets.emit("chatMessages", data.rows);
         })
         .catch((err) => {
@@ -388,17 +396,10 @@ io.on("connection", (socket) => {
         });
 
     socket.on("My amazing chat message", (newMsg) => {
-        /* console.log("This message is coming from chat.js component: ", newMsg);
-        console.log("user who sent newMsg is: ", id);
-        console.log("our current socket.id: ", socket.id); */
-
-        // 1. do a db query to store the new chat message into the chat table!!!
         insertNewMsg(id, newMsg)
             .then((data) => {
-                console.log("data.rows: ", data.rows);
                 getUserInfo(id)
                     .then((result) => {
-                        console.log("result[0].first: ", result[0].first);
                         const allGoodData = {
                             ...data.rows[0],
                             first: result[0].first,
@@ -414,12 +415,5 @@ io.on("connection", (socket) => {
             .catch((err) => {
                 console.log("error in ADDING NEW CHAT MESSAGE: ", err);
             });
-        // 2. do a db query to get info about hte user (first, name, last name, and img) - will probably need to be a join
-
-        // once you have all that good data, we want to EMIT our message object to EVERYONE so everyone can see it immediately!!!!
     });
-
-    /* socket.on("disconnect", () => {
-        console.log(`socket with id ${socket.id} just DISCONNECTED`);
-    }); */
 });

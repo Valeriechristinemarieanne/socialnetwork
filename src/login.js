@@ -10,6 +10,8 @@ export default class Login extends React.Component {
             password: "",
             error: false,
         };
+        this.logMe = this.logMe.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
     handleChange(e) {
         this.setState({
@@ -18,15 +20,22 @@ export default class Login extends React.Component {
     }
     logMe(e) {
         e.preventDefault();
-
+        console.log("this.state: ", this.state);
         axios
             .post("/login", this.state)
-            .then(function (response) {
-                location.replace("/");
+            .then((response) => {
+                if (response.data.success) {
+                    location.replace("/");
+                } else {
+                    this.setState({ error: true });
+                    console.log("response:", response);
+                    console.log("this.state: ", this.state);
+                }
             })
             .catch(function (err) {
+                console.log("this.state: ", this.state);
                 console.log("err in POST/Login:", err);
-                setState({ error: true });
+                this.setState({ error: true });
             });
     }
     render() {
@@ -42,6 +51,7 @@ export default class Login extends React.Component {
                         placeholder="Email"
                         type="text"
                         onChange={(e) => this.handleChange(e)}
+                        required
                     />
                     <input
                         autoComplete="off"
@@ -49,6 +59,7 @@ export default class Login extends React.Component {
                         placeholder="Password"
                         type="password"
                         onChange={(e) => this.handleChange(e)}
+                        required
                     />
                     <button onClick={(e) => this.logMe(e)}>Login</button>
                     <p>
