@@ -29,7 +29,7 @@ export default function Registration() {
             {error && <p>Something went wrong </p>}
             {/*   <LayoutTextFields /> */}
 
-            {/*   <TextField
+            <TextField
                 name="first"
                 label="First"
                 defaultValue=""
@@ -69,7 +69,7 @@ export default function Registration() {
                 onChange={handleChange}
                 required
             />
- */}
+
             <div className="registerinputcontainer">
                 <input
                     name="first"
@@ -90,7 +90,7 @@ export default function Registration() {
                 <input
                     name="email"
                     placeholder="Email"
-                    type="text"
+                    type="email"
                     autoComplete="off"
                     onChange={handleChange}
                     required
@@ -107,7 +107,7 @@ export default function Registration() {
                 <input name="last" onChange={handleChange} />
                 <input name="email" onChange={handleChange} />
                 <input name="password" onChange={handleChange} />
-                <button name="submit" onClick={submit}>
+                <button name="submit" type="submit" onClick={submit}>
                     Submit
                 </button>
             </div>

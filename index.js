@@ -136,7 +136,7 @@ app.post("/register", function (req, res) {
                     if (result.rows[0]) {
                         req.session.id = result.rows[0].id;
                         console.log("result: ", result.rows[0]);
-                        res.json();
+                        res.json({ success: true });
                     } else {
                         res.sendStatus(500);
                         console.log("error in if/else statement: ", err);

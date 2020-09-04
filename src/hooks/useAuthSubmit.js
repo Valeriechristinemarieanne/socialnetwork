@@ -1,4 +1,4 @@
-import React, { useState } from "../../node_modules/react";
+import React, { useState } from "react";
 import axios from "../axios";
 
 export function useAuthSubmit(url, values) {
@@ -7,7 +7,7 @@ export function useAuthSubmit(url, values) {
     const submit = () => {
         console.log("handeling click");
         axios
-            .post(url, values)
+            .post("/register", values)
             .then(({ data }) => {
                 console.log("data:", data);
                 if (data.success) {
