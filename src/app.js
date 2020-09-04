@@ -62,7 +62,6 @@ export default class App extends React.Component {
             <div className="loggedincontainer">
                 <BrowserRouter>
                     <div className="header">
-                        <img className="logo" src="/my-logo.png" />
                         <div className="linkcontainer">
                             <h3>
                                 {" "}

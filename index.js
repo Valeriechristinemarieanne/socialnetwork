@@ -1,7 +1,10 @@
 const express = require("express");
 const app = express();
 const compression = require("compression");
-const { hash, compare } = require("./bc.js");
+
+const cookieSession = require("cookie-session");
+const csurf = require("csurf");
+
 const {
     insertRegData,
     getPassword,
@@ -26,39 +29,14 @@ const {
 } = require("./db.js");
 
 const { sendEmail } = require("./ses.js");
-const cookieSession = require("cookie-session");
+
+/////BCRYPT \\\\\\
+const { hash, compare } = require("./bc.js");
+
+//// CRYPTO RANDOM STRING \\\\
 const cryptoRandomString = require("crypto-random-string");
-const csurf = require("csurf");
-const s3 = require("./s3");
-const { s3Url } = require("./config.json");
-console.log("s3Url: ", s3Url);
-app.use(compression());
-app.use(express.static("./public"));
 
-// Socket Boilerplate
-const server = require("http").Server(app);
-const io = require("socket.io")(server, { origins: "localhost:8080" });
-
-// Cookiesession & passing cookie access to socket
-const cookieSessionMiddleware = cookieSession({
-    secret: `I'm always angry.`,
-    maxAge: 1000 * 60 * 60 * 24 * 90,
-});
-
-app.use(cookieSessionMiddleware);
-io.use(function (socket, next) {
-    cookieSessionMiddleware(socket.request, socket.request.res, next);
-});
-
-// Express
-app.use(express.json());
-app.use(
-    express.urlencoded({
-        extended: false,
-    })
-);
-
-// FILE UPLOAD BOILERPLATE
+//// FILD UPLOAD BOILERPLATE \\\\
 const multer = require("multer");
 const uidSafe = require("uid-safe");
 const path = require("path");
@@ -81,12 +59,16 @@ const uploader = multer({
     },
 });
 
-// this middleware works for all post requests
-app.use(csurf());
-app.use(function (req, res, next) {
-    res.cookie("mytoken", req.csrfToken());
-    next();
-});
+//// S3 \\\\
+const s3 = require("./s3");
+const { s3Url } = require("./config.json");
+
+//// SOCKET BOILERPLATE \\\\
+const server = require("http").Server(app);
+const io = require("socket.io")(server, { origins: "localhost:8080" });
+
+//// SERVER MIDDLEWARE \\\\
+app.use(compression());
 
 if (process.env.NODE_ENV != "production") {
     app.use(
@@ -99,6 +81,32 @@ if (process.env.NODE_ENV != "production") {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
 
+app.use(express.static("./public"));
+app.use(express.json());
+app.use(
+    express.urlencoded({
+        extended: false,
+    })
+);
+
+//// Cookiesession & passing cookie access to socket \\\\
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm always angry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 90,
+});
+
+app.use(cookieSessionMiddleware);
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
+
+//// this middleware works for all post requests \\\\
+app.use(csurf());
+app.use(function (req, res, next) {
+    res.cookie("mytoken", req.csrfToken());
+    next();
+});
+
 //////////// ROUTES \\\\\\\\\\\\\
 
 app.get("/welcome", (req, res) => {
@@ -110,6 +118,7 @@ app.get("/welcome", (req, res) => {
 });
 
 app.post("/register", function (req, res) {
+    console.log("lets register");
     hash(req.body.password)
         .then((hashedPw) => {
             insertRegData(

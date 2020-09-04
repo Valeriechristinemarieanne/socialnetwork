@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import axios from "./axios";
+import React, { useState } from "../../node_modules/react";
+import axios from "../axios";
 
 export function useAuthSubmit(url, values) {
     const [error, setError] = useState(false);
 
     const handleClick = () => {
-        /* axios.post(url, values); */
+        axios.post(url, values);
         axios
-            .post("/registration", values)
+            .post(url, values)
             .then(({ data }) => {
                 if (data.success) {
                     location.replace("/");
@@ -16,7 +16,7 @@ export function useAuthSubmit(url, values) {
                 }
             })
             .catch((err) => {
-                console.log(err);
+                console.log("err in useauthsubmit:", err);
                 setError(true);
             });
     };

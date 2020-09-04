@@ -2,6 +2,8 @@ import React from "react";
 import axios from "./axios";
 import { Link } from "react-router-dom";
 
+import LayoutTextFields from "./layouttextfields";
+
 export default class Register extends React.Component {
     constructor(props) {
         super(props);
@@ -22,7 +24,7 @@ export default class Register extends React.Component {
         const self = this;
         e.preventDefault();
         axios
-            .post("/register", this.state)
+            .post("/registration", this.state)
             .then(function (response) {
                 location.replace("/");
             })
@@ -34,13 +36,15 @@ export default class Register extends React.Component {
     render() {
         return (
             <div className="registercontainer">
-                <img src="/my-logo.png" />
+                {/*   <img src="/my-logo.png" /> */}
                 <p>
                     <strong>
                         Meet new friends & create meaningful relations.
                     </strong>
                 </p>
                 <div>{this.state.error && <p>Something went wrong</p>}</div>
+                <LayoutTextFields />
+
                 <div className="registerinputcontainer">
                     <input
                         name="first"
