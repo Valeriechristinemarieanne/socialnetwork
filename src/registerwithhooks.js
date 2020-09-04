@@ -2,9 +2,8 @@ import React from "react";
 import axios from "./axios";
 import { useStatefulFields } from "./hooks/useStatefulFields";
 import { useAuthSubmit } from "./hooks/useAuthSubmit";
-/* import LayoutTextFields from "./layouttextfields"; */
 import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "@material-ui/core";
+import { Link, Button, Typography } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles((theme) => ({
@@ -26,8 +25,7 @@ export default function Registration() {
 
     return (
         <div>
-            {error && <p>Something went wrong </p>}
-            {/*   <LayoutTextFields /> */}
+            {error && <p> Something went wrong </p>}
 
             <TextField
                 name="first"
@@ -70,51 +68,14 @@ export default function Registration() {
                 required
             />
 
-            <div className="registerinputcontainer">
-                <input
-                    name="first"
-                    placeholder="First name"
-                    type="text"
-                    autoComplete="off"
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    name="last"
-                    placeholder="Last name"
-                    type="text"
-                    autoComplete="off"
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    name="email"
-                    placeholder="Email"
-                    type="email"
-                    autoComplete="off"
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    name="password"
-                    placeholder="Password"
-                    type="password"
-                    autoComplete="off"
-                    onChange={handleChange}
-                    required
-                />
-                <input name="first" onChange={handleChange} />
-                <input name="last" onChange={handleChange} />
-                <input name="email" onChange={handleChange} />
-                <input name="password" onChange={handleChange} />
-                <button name="submit" type="submit" onClick={submit}>
-                    Submit
-                </button>
-            </div>
-            <p>
+            <Button name="submit" type="submit" onClick={submit}>
+                Submit
+            </Button>
+
+            <Typography>
                 Already registered? Go to{" "}
                 <Link href="/welcome#/login">Login</Link>
-            </p>
+            </Typography>
         </div>
     );
 }
