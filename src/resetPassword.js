@@ -52,7 +52,7 @@ export default class ResetPassword extends React.Component {
                         name="email"
                         placeholder="Email"
                         key="email"
-                        autocomplete="off"
+                        autoComplete="off"
                         onChange={(e) => this.handleChange(e)}
                     />
                     <button onClick={(e) => this.handleClick(e)}>Submit</button>

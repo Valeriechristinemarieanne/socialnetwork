@@ -4,11 +4,12 @@ import axios from "../axios";
 export function useAuthSubmit(url, values) {
     const [error, setError] = useState(false);
 
-    const handleClick = () => {
-        axios.post(url, values);
+    const submit = () => {
+        console.log("handeling click");
         axios
             .post(url, values)
             .then(({ data }) => {
+                console.log("data:", data);
                 if (data.success) {
                     location.replace("/");
                 } else {
@@ -21,5 +22,5 @@ export function useAuthSubmit(url, values) {
             });
     };
 
-    return [error, handleClick];
+    return [submit, error];
 }

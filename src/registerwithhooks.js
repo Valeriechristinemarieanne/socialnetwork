@@ -22,13 +22,14 @@ const useStyles = makeStyles((theme) => ({
 export default function Registration() {
     const classes = useStyles();
     const [values, handleChange] = useStatefulFields();
-    const [error, handleClick] = useAuthSubmit("/register", values);
+    const [submit, error] = useAuthSubmit("/register", values);
+
     return (
         <div>
             {error && <p>Something went wrong </p>}
             {/*   <LayoutTextFields /> */}
 
-            <TextField
+            {/*   <TextField
                 name="first"
                 label="First"
                 defaultValue=""
@@ -68,8 +69,8 @@ export default function Registration() {
                 onChange={handleChange}
                 required
             />
-
-            {/*  <div className="registerinputcontainer">
+ */}
+            <div className="registerinputcontainer">
                 <input
                     name="first"
                     placeholder="First name"
@@ -101,17 +102,18 @@ export default function Registration() {
                     autoComplete="off"
                     onChange={handleChange}
                     required
-                /> */}
-            {/*   <input name="first" onChange={handleChange} />
+                />
+                <input name="first" onChange={handleChange} />
                 <input name="last" onChange={handleChange} />
                 <input name="email" onChange={handleChange} />
-                <input name="password" onChange={handleChange} /> */}
-            <button name="submit" onClick={handleClick}>
-                Submit
-            </button>
-            {/* </div> */}
+                <input name="password" onChange={handleChange} />
+                <button name="submit" onClick={submit}>
+                    Submit
+                </button>
+            </div>
             <p>
-                Already registered? Go to <Link href="/login">Login</Link>
+                Already registered? Go to{" "}
+                <Link href="/welcome#/login">Login</Link>
             </p>
         </div>
     );

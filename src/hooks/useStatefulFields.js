@@ -4,6 +4,7 @@ export function useStatefulFields() {
     const [values, setValues] = useState({});
 
     const handleChange = (e) => {
+        console.log("handeling change");
         setValues({
             ...values,
             [e.target.name]: e.target.value,
