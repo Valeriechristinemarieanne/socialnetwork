@@ -3,7 +3,7 @@ import axios from "./axios";
 import { useStatefulFields } from "./hooks/useStatefulFields";
 import { useAuthSubmit } from "./hooks/useAuthSubmit";
 import { makeStyles } from "@material-ui/core/styles";
-import { Link, Button, Typography } from "@material-ui/core";
+import { Button, Typography, Link } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles((theme) => ({
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Login() {
     const classes = useStyles();
     const [values, handleChange] = useStatefulFields();
-    const [submit, error] = useAuthSubmit("/register", values);
+    const [submit, error] = useAuthSubmit("/login", values);
 
     return (
         <div>
