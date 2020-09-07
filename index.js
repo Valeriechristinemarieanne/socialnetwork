@@ -118,13 +118,8 @@ app.get("/welcome", (req, res) => {
 });
 
 app.post("/register", function (req, res) {
-    console.log("lets register");
     hash(req.body.password)
         .then((hashedPw) => {
-            console.log("hashedPw", hashedPw);
-            console.log("req.body.first", req.body.first);
-            console.log("req.body.last", req.body.last);
-            console.log("req.body.email", req.body.email);
             insertRegData(
                 req.body.first,
                 req.body.last,
@@ -132,10 +127,8 @@ app.post("/register", function (req, res) {
                 hashedPw
             )
                 .then((result) => {
-                    console.log("result.rows[0]: ", result.rows[0]);
                     if (result.rows[0]) {
                         req.session.id = result.rows[0].id;
-                        console.log("result: ", result.rows[0]);
                         res.json({ success: true });
                     } else {
                         res.sendStatus(500);
@@ -154,7 +147,6 @@ app.post("/register", function (req, res) {
 });
 
 app.post("/login", (req, res) => {
-    console.log("we are entering the login route");
     if (req.body.email) {
         let userEmail = req.body.email;
         let userPassword = req.body.password;

@@ -7,7 +7,6 @@ import OtherProfile from "./otherProfile";
 import FindPeople from "./findpeople";
 import Friends from "./friends";
 import Chat from "./chat";
-
 import { BrowserRouter, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 

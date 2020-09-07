@@ -41,7 +41,7 @@ export default class Login extends React.Component {
     render() {
         return (
             <div className="logincontainer">
-                {/* <img src="/my-logo.png" /> */}
+                <img src="/my-logo.png" />
                 <div>{this.state.error && <p>Something went wrong</p>}</div>
                 <div className="logincontainerinput">
                     {" "}
