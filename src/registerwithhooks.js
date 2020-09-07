@@ -50,6 +50,10 @@ export default function Registration() {
             <TextField
                 name="email"
                 label="E-Mail"
+                sudo
+                service
+                postgresql
+                start
                 defaultValue=""
                 className={classes.textField}
                 variant="outlined"

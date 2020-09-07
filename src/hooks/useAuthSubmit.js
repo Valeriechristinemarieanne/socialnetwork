@@ -7,7 +7,7 @@ export function useAuthSubmit(url, values) {
     const submit = () => {
         console.log("handeling click");
         axios
-            .post("/register", values)
+            .post(url, values)
             .then(({ data }) => {
                 console.log("data:", data);
                 if (data.success) {
