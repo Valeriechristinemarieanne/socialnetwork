@@ -1,28 +1,47 @@
 * {
     /* background-color: whitesmoke; */
     font-family: "Courier New", Courier, monospace;
-    text-align: center;
+    /* text-align: center;
+    margin: 0; */
+    /* width: 100vw; */
+    box-sizing: border-box;
+    padding: 0;
     margin: 0;
 }
 
+/* Registration component */
+
 .registercontainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.registercontainer img {
-    width: 15vw;
-}
-
-.registercontainer p {
-    padding: 20px;
+    background-image: url("registration.jpg");
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
 }
 
 .registerinputcontainer {
-    background-color: rgb(252, 237, 237);
-    width: 18vw;
+    position: absolute;
+    right: 0;
+    margin: 20px;
+    max-width: 50vw;
+    padding: 16px;
+    background-color: white;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    background-color: #ddd;
+    outline: none;
 }
 
 .logincontainer {

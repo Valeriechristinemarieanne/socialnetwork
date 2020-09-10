@@ -34,15 +34,17 @@ export default class Register extends React.Component {
     render() {
         return (
             <div className="registercontainer">
-                <img src="/my-logo.png" />
-                <p>
-                    <strong>
-                        Meet new friends & create meaningful relations.
-                    </strong>
-                </p>
+                {/*  <img src="/registration.jpg" /> */}
+
                 <div>{this.state.error && <p>Something went wrong</p>}</div>
 
                 <div className="registerinputcontainer">
+                    <h2>The Social Dilemma!</h2>
+                    <p>
+                        <strong>
+                            Meet new friends & create meaningful relations.
+                        </strong>
+                    </p>
                     <input
                         name="first"
                         placeholder="First name"
