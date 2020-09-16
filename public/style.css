@@ -1,48 +1,30 @@
+
+  
 * {
     /* background-color: whitesmoke; */
     font-family: "Courier New", Courier, monospace;
-    /* text-align: center;
-    margin: 0; */
-    /* width: 100vw; */
-    box-sizing: border-box;
-    padding: 0;
+    text-align: center;
     margin: 0;
 }
 
-/* Registration component */
-
 .registercontainer {
-    background-image: url("registration.jpg");
-    height: 100vh;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.registercontainer img {
+    width: 15vw;
+}
+
+.registercontainer p {
+    padding: 20px;
 }
 
 .registerinputcontainer {
-    position: absolute;
-    right: 0;
-    margin: 20px;
-    width: 30vw;
-    height: 90vh;
-    padding: 16px;
-    background-color: rgba(0, 0, 0, 0.3);
-}
-
-input[type="text"],
-input[type="password"] {
-    width: 100%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
-    border: none;
-    background: #f1f1f1;
-}
-
-input[type="text"]:focus,
-input[type="password"]:focus {
-    background-color: #ddd;
-    outline: none;
+    background-color: rgb(252, 237, 237);
+    width: 15vw;
 }
 
 .logincontainer {
@@ -53,7 +35,7 @@ input[type="password"]:focus {
 
 .logincontainerinput {
     background-color: rgb(252, 237, 237);
-    width: 18vw;
+    width: 12vw;
 }
 
 .logincontainer p {
@@ -277,3 +259,15 @@ div.chat-messages-container img {
     width: 100px;
     margin: 10px;
 }
+© 2020 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About

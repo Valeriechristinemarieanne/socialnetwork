@@ -34,7 +34,7 @@ export default class Register extends React.Component {
     render() {
         return (
             <div className="registercontainer">
-                {/*  <img src="/registration.jpg" /> */}
+                <img src="/my-logo.png" />
 
                 <div>{this.state.error && <p>Something went wrong</p>}</div>
 
