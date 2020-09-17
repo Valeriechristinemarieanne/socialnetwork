@@ -24,7 +24,7 @@
 
 .registerinputcontainer {
     background-color: rgb(252, 237, 237);
-    width: 15vw;
+    width: 250px;
 }
 
 .logincontainer {
@@ -35,7 +35,7 @@
 
 .logincontainerinput {
     background-color: rgb(252, 237, 237);
-    width: 12vw;
+     width: 250px;
 }
 
 .logincontainer p {
